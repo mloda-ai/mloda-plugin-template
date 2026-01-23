@@ -1,0 +1,1 @@
+# mloda-plugin-template
