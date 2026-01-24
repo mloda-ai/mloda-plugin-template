@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "placeholder-my-plugin"
-version = "0.2.1"
+version = "0.2.2"
 description = "TEMPLATE PLACEHOLDER - Do not install directly. This package reserves the name for mloda-plugin-template. See https://github.com/mloda-ai/mloda-plugin-template"
 license = "Apache-2.0"
 authors = [{ name = "Your Name placeholder", email = "placeholder@placeholder.com" }]
