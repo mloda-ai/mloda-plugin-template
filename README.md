@@ -121,15 +121,10 @@ mypy --strict --ignore-missing-imports .
 bandit -c pyproject.toml -r -q .
 ```
 
-### Add new FeatureGroup
-Create new directory under `placeholder/feature_groups/` following the `my_plugin/` pattern.
-
 ## Related Documentation
 
 Guides for plugin development can be found in mloda-registry:
 
 - https://github.com/mloda-ai/mloda-registry/tree/main/docs/guides/
 
-## Architecture Overview
-
-- [Repository structure and relationships](https://github.com/mloda-ai/mloda-registry/blob/main/docs/architecture/00_repositories.md)
+This template includes pre-configured GitHub Actions workflows for testing, security scanning, and automated releases. See the [GitHub Workflows documentation](docs/github-workflows.md) for setup instructions and required secrets.

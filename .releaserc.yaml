@@ -8,8 +8,6 @@ plugins:
     - preset: conventionalcommits
       releaseRules:
         - type: feat
-          release: patch
-        - type: minor
           release: minor
         - type: impr
           release: patch
@@ -38,9 +36,6 @@ plugins:
         types:
           - type: feat
             section: "Features"
-            hidden: false
-          - type: minor
-            section: "Minor Changes"
             hidden: false
           - type: impr
             section: "Improvements"
