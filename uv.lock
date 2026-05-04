@@ -3,8 +3,13 @@ revision = 3
 requires-python = ">=3.10"
 
 [options]
-exclude-newer = "2026-04-10T15:45:56.665589717Z"
+exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
 exclude-newer-span = "P7D"
+
+[options.exclude-newer-package]
+mloda-testing = "2027-01-01T00:00:00Z"
+mloda = "2027-01-01T00:00:00Z"
+mloda-registry = "2027-01-01T00:00:00Z"
 
 [[package]]
 name = "bandit"
@@ -197,14 +202,14 @@ wheels = [
 
 [[package]]
 name = "mloda-testing"
-version = "0.2.12"
+version = "0.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mloda" },
     { name = "pytest" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/df/bf/2413fe5a164d1cd9fbc3cd6d6a65e5e35bec2f46d0ce624b3e4cac2b9d9e/mloda_testing-0.2.12-py3-none-any.whl", hash = "sha256:497033b8096796856208381445beed0cac0e90a3387b3eec6bcbc3f8ba09a7f3", size = 1790, upload-time = "2026-03-12T12:24:49.789Z" },
+    { url = "https://files.pythonhosted.org/packages/20/5c/e44dc34a3ab472a5b0a4796a6dd0848fde3c6d6f77ea43d3bc26ff5c9c12/mloda_testing-0.3.1-py3-none-any.whl", hash = "sha256:d979db81f4034ccaaa10c582a4c66e02f62526e66fdac3139b0a34b77f7a3bef", size = 81356, upload-time = "2026-05-01T20:59:36.655Z" },
 ]
 
 [[package]]
@@ -314,8 +319,8 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "bandit", marker = "extra == 'dev'" },
-    { name = "mloda", specifier = ">=0.5.4" },
-    { name = "mloda-testing", specifier = ">=0.2.11" },
+    { name = "mloda", specifier = ">=0.6.1" },
+    { name = "mloda-testing", specifier = ">=0.3.1" },
     { name = "mypy", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "ruff", marker = "extra == 'dev'" },

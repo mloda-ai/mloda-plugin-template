@@ -10,7 +10,7 @@ version = "0.3.4"
 description = "TEMPLATE PLACEHOLDER - Do not install directly. This package reserves the name for mloda-plugin-template. See https://github.com/mloda-ai/mloda-plugin-template"
 license = "Apache-2.0"
 authors = [{ name = "Your Name placeholder", email = "placeholder@placeholder.com" }]
-dependencies = ["mloda>=0.5.4", "mloda-testing>=0.2.11"]
+dependencies = ["mloda>=0.6.1", "mloda-testing>=0.3.1"]
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
@@ -45,3 +45,4 @@ exclude_dirs = [".tox", ".venv", "tests"]
 
 [tool.uv]
 exclude-newer = "7 days"
+exclude-newer-package = { mloda = "2026-12-31", "mloda-testing" = "2026-12-31", "mloda-registry" = "2026-12-31" }
