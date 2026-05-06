@@ -6,7 +6,10 @@
 
 > **A GitHub template for creating standalone mloda plugins.** Part of the [mloda](https://github.com/mloda-ai/mloda) ecosystem for open data access. Visit [mloda.ai](https://mloda.ai) for an overview and business context, the [GitHub repository](https://github.com/mloda-ai/mloda) for technical context, or the [documentation](https://mloda-ai.github.io/mloda/) for detailed guides.
 
-Create your own FeatureGroups, ComputeFrameworks, and Extenders as standalone packages.
+Create your own FeatureGroups, ComputeFrameworks, and Extenders as standalone packages. This repository serves two audiences:
+
+- **Plugin authors**: click *Use this template* on GitHub to scaffold a new plugin repository, then follow the [Use this template](#use-this-template) section below.
+- **Template contributors**: improving the scaffold itself? See [CONTRIBUTING.md](CONTRIBUTING.md) and the [Contribute to this template](#contribute-to-this-template) section.
 
 ## Related Repositories
 
@@ -86,16 +89,21 @@ Update imports in these files (change `from placeholder.` to `from acme.`):
 uv venv && source .venv/bin/activate && uv sync --all-extras && tox
 ```
 
-#### 6. Remove template-only files
+#### 6. Remove the template-only contributor guide
 
-These files belong to the template repo and don't apply to your scaffolded plugin. Remove them after `tox` passes:
+`CONTRIBUTING.md` describes how to contribute to the template repo itself; it does not apply to your plugin. Remove it after `tox` passes:
 
 ```bash
-rm CODE_OF_CONDUCT.md AGENTS.md CLAUDE.md CONTRIBUTING.md
-rm -rf .github/ISSUE_TEMPLATE/
+rm CONTRIBUTING.md
 ```
 
-You may also want to replace this `README.md` with one that describes your plugin. Add your own Code of Conduct, contributor guide, and issue templates later if you want them.
+The remaining baseline files apply to your plugin out of the box and can be edited to match your conventions:
+
+- `AGENTS.md` and `CLAUDE.md` — toolchain and project practices for the same `tox`/ruff/mypy/bandit pipeline you inherit. Tune the bullets if you change the toolchain.
+- `CODE_OF_CONDUCT.md` — short, plain-English baseline. Update the contact (`conduct@mloda.ai` → your address) if you want enforcement to come to you.
+- `.github/ISSUE_TEMPLATE/issue.yml` — unified issue form. Update the placeholder file paths to point at your renamed package.
+
+You may also want to replace this `README.md` with one that describes your plugin.
 
 ### Where to next
 
@@ -103,3 +111,11 @@ You may also want to replace this `README.md` with one that describes your plugi
 - **[mloda](https://github.com/mloda-ai/mloda)** — core framework reference.
 - **[Claude Code skills](https://github.com/mloda-ai/mloda-registry/tree/main/.claude/skills/)** — pattern guidance and best practices for AI-assisted plugin development.
 - **[docs/github-workflows.md](docs/github-workflows.md)** — CI/CD setup and required secrets for the included workflows.
+
+## Contribute to this template
+
+This section is for people improving the scaffold itself (CI workflows, dev tooling, docs, examples). See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor guide. Quick pointers:
+
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [AGENTS.md](AGENTS.md) — agent guidance, project practices, issue creation
+- [Issue template](.github/ISSUE_TEMPLATE/issue.yml)
