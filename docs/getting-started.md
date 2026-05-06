@@ -49,3 +49,4 @@ Regardless of which option you chose, follow the setup steps in the [README](../
 4. Update `.releaserc.yaml` (change `mloda-plugin-template` to your package name and update `repositoryUrl`)
 5. Update Python imports
 6. Verify with `tox`
+7. Remove template-only community files (`CODE_OF_CONDUCT.md`, `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `.github/ISSUE_TEMPLATE/`) — they apply to the template repo, not to your plugin

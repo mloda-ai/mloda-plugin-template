@@ -6,7 +6,7 @@
 
 > **A GitHub template for creating standalone mloda plugins.** Part of the [mloda](https://github.com/mloda-ai/mloda) ecosystem for open data access. Visit [mloda.ai](https://mloda.ai) for an overview and business context, the [GitHub repository](https://github.com/mloda-ai/mloda) for technical context, or the [documentation](https://mloda-ai.github.io/mloda/) for detailed guides.
 
-Create your own FeatureGroups, ComputeFrameworks, and Extenders as standalone packages. See the [Getting Started guide](docs/getting-started.md) to create your repository, then follow the setup steps below.
+Create your own FeatureGroups, ComputeFrameworks, and Extenders as standalone packages.
 
 ## Related Repositories
 
@@ -14,7 +14,11 @@ Create your own FeatureGroups, ComputeFrameworks, and Extenders as standalone pa
 
 - **[mloda-registry](https://github.com/mloda-ai/mloda-registry)**: The central hub for discovering and sharing mloda plugins. Browse community-contributed FeatureGroups, find integration guides, and publish your own plugins for others to use.
 
-## Structure
+## Use this template
+
+Click *Use this template* on GitHub to scaffold a new plugin repository. See [docs/getting-started.md](docs/getting-started.md) for the GitHub template-creation walkthrough; once your repository is in place, follow the steps below to customize the scaffold for your organization.
+
+### Structure
 
 ```
 placeholder/
@@ -34,17 +38,13 @@ placeholder/
         └── my_extender.py
 ```
 
-## Key Files
+### Key files
 
-- `placeholder/` - Root namespace (users rename to company name)
-- `pyproject.toml` - Package config (users edit directly, not auto-generated)
+- `placeholder/` - Root namespace (rename to your organization's name)
+- `pyproject.toml` - Package config (edit directly, not auto-generated)
 - `.github/workflows/test.yml` - CI workflow running pytest
 
-## Common Tasks
-
 ### Setup Your Plugin
-
-Follow these steps to customize the template for your organization:
 
 #### 1. Rename the directory
 
@@ -56,18 +56,18 @@ mv placeholder acme
 
 Edit the following fields in `pyproject.toml`:
 
-- `name`: Change `"placeholder-my-plugin"` to `"acme-my-plugin"`
-- `authors`: Update name and email
-- `description`: Update to describe your plugin
-- `tool.setuptools.packages.find.include`: Change `["placeholder*"]` to `["acme*"]`
-- `tool.pytest.ini_options.testpaths`: Change `["placeholder", "tests"]` to `["acme", "tests"]`
+- `name`: change `"placeholder-my-plugin"` to `"acme-my-plugin"`
+- `authors`: update name and email
+- `description`: update to describe your plugin
+- `tool.setuptools.packages.find.include`: change `["placeholder*"]` to `["acme*"]`
+- `tool.pytest.ini_options.testpaths`: change `["placeholder", "tests"]` to `["acme", "tests"]`
 
 #### 3. Update .releaserc.yaml
 
 Edit the following fields in `.releaserc.yaml`:
 
-- `message`: Change `mloda-plugin-template` to your package name (e.g., `"chore(release acme-my-plugin): ${nextRelease.version}"`)
-- `repositoryUrl`: Change to your repository URL
+- `message`: change `mloda-plugin-template` to your package name (e.g., `"chore(release acme-my-plugin): ${nextRelease.version}"`)
+- `repositoryUrl`: change to your repository URL
 
 #### 4. Update Python imports
 
@@ -86,56 +86,20 @@ Update imports in these files (change `from placeholder.` to `from acme.`):
 uv venv && source .venv/bin/activate && uv sync --all-extras && tox
 ```
 
-### Development Setup with uv
+#### 6. Remove template-only files
 
-**Install uv** (if not already installed):
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-**Create virtual environment and install dependencies:**
-```bash
-uv venv
-source .venv/bin/activate
-uv sync --all-extras
-```
-
-**Run all checks with tox:**
-```bash
-# Install tox with uv backend
-uv tool install tox --with tox-uv
-
-# Run all checks (pytest, ruff, mypy, bandit)
-tox
-```
-
-### Run individual checks
+These files belong to the template repo and don't apply to your scaffolded plugin. Remove them after `tox` passes:
 
 ```bash
-# Tests only
-pytest
-
-# Format check
-ruff format --check --line-length 120 .
-
-# Lint check
-ruff check .
-
-# Type check
-mypy --strict --ignore-missing-imports .
-
-# Security check
-bandit -c pyproject.toml -r -q .
+rm CODE_OF_CONDUCT.md AGENTS.md CLAUDE.md CONTRIBUTING.md
+rm -rf .github/ISSUE_TEMPLATE/
 ```
 
-## Related Documentation
+You may also want to replace this `README.md` with one that describes your plugin. Add your own Code of Conduct, contributor guide, and issue templates later if you want them.
 
-Guides for plugin development can be found in mloda-registry:
+### Where to next
 
-- https://github.com/mloda-ai/mloda-registry/tree/main/docs/guides/
-
-Claude Code users can leverage the skills in mloda-registry for assisted plugin development:
-
-- https://github.com/mloda-ai/mloda-registry/tree/main/.claude/skills/
-
-This template includes pre-configured GitHub Actions workflows for testing, security scanning, and automated releases. See the [GitHub Workflows documentation](docs/github-workflows.md) for setup instructions and required secrets.
+- **[mloda-registry/docs/guides/](https://github.com/mloda-ai/mloda-registry/tree/main/docs/guides/)** — full plugin development walkthrough (FeatureGroups, ComputeFrameworks, Extenders, packaging, publishing).
+- **[mloda](https://github.com/mloda-ai/mloda)** — core framework reference.
+- **[Claude Code skills](https://github.com/mloda-ai/mloda-registry/tree/main/.claude/skills/)** — pattern guidance and best practices for AI-assisted plugin development.
+- **[docs/github-workflows.md](docs/github-workflows.md)** — CI/CD setup and required secrets for the included workflows.
