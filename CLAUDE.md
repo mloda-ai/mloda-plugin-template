@@ -1,6 +1,8 @@
-# CLAUDE.md
+# AGENTS.md
 
-Must read [AGENTS.md](AGENTS.md) first.
+Must read [README.md](README.md) first.
+
+This project uses the mloda framework. Assume any given task is related to mloda.
 
 ## Environment
 
@@ -48,3 +50,35 @@ Do not include `Co-Authored-By` lines or any other mention of AI agents in commi
 Examples:
 - `fix: handle empty feature set`
 - `chore(deps): bump mloda to 0.4.6`
+
+## Claude Code Skills
+
+The mloda-registry provides Claude Code skills that assist with plugin development:
+
+- https://github.com/mloda-ai/mloda-registry/tree/main/.claude/skills/
+
+When helping with FeatureGroups, ComputeFrameworks, or Extenders, leverage these skills for pattern guidance and best practices.
+
+Consider generating project-specific skills for your own plugin repository to provide tailored AI assistance for your implementation patterns and conventions.
+
+## Project Practices
+
+`tox` is the gate. It runs `pytest`, then `ruff format --check`, `ruff check`, `mypy --strict --ignore-missing-imports`, and `bandit`. All of these must pass before a PR is mergeable. A separate `tox -e security` environment runs `pip-audit` for CVE scanning.
+
+- **Python**: supported range is `>=3.10`. The default tox env is `python310`.
+- **Type hints**: use modern forms (`list[str]`, `dict[str, int]`, `X | None`).
+- **Formatting**: ruff format with line length 120.
+- **Tests**: every new feature or bug fix must come with tests; follow the patterns in the existing `tests/` and `placeholder/.../tests/` trees.
+- **Supply chain**: `[tool.uv] exclude-newer = "7 days"` in `pyproject.toml` defers new dependency releases by 7 days; `exclude-newer-package` pins mloda, mloda-testing, and mloda-registry to a longer window. Do not edit these without a reason.
+- **Commits**: use [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`, `style:`, `ci:`, `build:`, `perf:`). semantic-release computes the next version: `feat:` triggers a minor bump, all other types trigger a patch bump (see `.releaserc.yaml`).
+
+## Issue Creation
+
+When filing a GitHub issue (via `gh issue create` or otherwise), follow the structure in `.github/ISSUE_TEMPLATE/issue.yml`:
+
+- Summary in one sentence
+- Reproduction (for bugs) or motivation (for features)
+- Code pointers if relevant (`file:line`)
+- Definition of done if scoped (what counts as complete)
+
+Issues that meet this bar are eligible for the `good first issue` label without further sharpening.
