@@ -49,4 +49,5 @@ Regardless of which option you chose, follow the setup steps in the [README](../
 4. Update `.releaserc.yaml` (change `mloda-plugin-template` to your package name and update `repositoryUrl`)
 5. Update Python imports
 6. Verify with `tox`
-7. Remove `CONTRIBUTING.md` (the template's own contributor guide doesn't apply to your plugin); optionally tune `CODE_OF_CONDUCT.md`, `AGENTS.md`/`CLAUDE.md`, and `.github/ISSUE_TEMPLATE/` to fit your plugin
+7. Remove `CONTRIBUTING.md` — it describes contributing to the template repo, not your plugin
+8. Keep `CODE_OF_CONDUCT.md`, `AGENTS.md`, `CLAUDE.md`, and `.github/ISSUE_TEMPLATE/` as inherited baselines; tune them later (contact email, placeholder paths, toolchain bullets) if you want
