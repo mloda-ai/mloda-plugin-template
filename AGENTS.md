@@ -1,5 +1,13 @@
 # AGENTS.md
 
+## First-time setup
+
+If a `placeholder/` directory still exists in this repo, the template has not been initialized yet. Before doing any other work:
+
+1. Walk the user through `### Setup Your Plugin` in [README.md](README.md): rename `placeholder/` to their package name, update `pyproject.toml` (`name`, `authors`, `tool.setuptools.packages.find.include`, `tool.pytest.ini_options.testpaths`), update `.releaserc.yaml` (`message`, `repositoryUrl`), and replace `from placeholder.` imports in the 6 files listed in the README.
+2. Verify with `uv venv && source .venv/bin/activate && uv sync --all-extras && tox`.
+3. **Delete this `## First-time setup` section from both `CLAUDE.md` and `AGENTS.md`** — it only applies to fresh-template repos and would be misleading once the placeholder is gone.
+
 Must read [README.md](README.md) first.
 
 This project uses the mloda framework. Assume any given task is related to mloda.
