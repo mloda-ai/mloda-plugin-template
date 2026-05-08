@@ -195,13 +195,13 @@ wheels = [
 
 [[package]]
 name = "mloda"
-version = "0.6.1"
+version = "0.6.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyarrow" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d5/92/b2b98f60f38499c69263e0118d1fdf1a7e116d4c328ef8bd09eaf708ea56/mloda-0.6.1-py3-none-any.whl", hash = "sha256:81e0336fc3c2d6888d12aae52f5f31917ceca1b8b1aadfdd996fc05b623345e1", size = 402433, upload-time = "2026-04-09T10:23:43.872Z" },
+    { url = "https://files.pythonhosted.org/packages/10/7a/ccca4ed4bb16817bd4e9b2b5f85e34a3a930332ea3a37c159a9034102c2c/mloda-0.6.2-py3-none-any.whl", hash = "sha256:a97efe7dbb547f7d1b9e53a2a7765c45990feffc4111f0088aa133a49a69a64a", size = 406590, upload-time = "2026-05-07T22:47:16.359Z" },
 ]
 
 [[package]]
