@@ -51,3 +51,4 @@ Regardless of which option you chose, follow the setup steps in the [README](../
 6. Verify with `tox`
 7. Remove `CONTRIBUTING.md` — it describes contributing to the template repo, not your plugin
 8. Keep `CODE_OF_CONDUCT.md`, `AGENTS.md`, `CLAUDE.md`, and `.github/ISSUE_TEMPLATE/` as inherited baselines; tune them later (contact email, placeholder paths, toolchain bullets) if you want
+9. Configure repository settings on GitHub: see [github-repository-settings.md](github-repository-settings.md) for the secrets, branch protection, required checks, and dependabot reviewer that the inherited workflows expect
