@@ -31,3 +31,11 @@ jobs:
       - name: Run tox
         run: tox
         timeout-minutes: 2
+
+      # Skip on the template repo itself: the placeholders are intentional there.
+      # Scaffolded plugins inherit no exemption and must update pyproject.toml
+      # before this check passes. Runs once per workflow (only on the 3.10 leg).
+      - name: Check pyproject.toml for template placeholders
+        if: matrix.python-version == '3.10' && github.repository != 'mloda-ai/mloda-plugin-template'
+        run: tox -e placeholders
+        timeout-minutes: 1

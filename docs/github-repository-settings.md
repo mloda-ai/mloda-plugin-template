@@ -49,7 +49,7 @@ The test workflow (`test.yml`) declares a job called `test` with a matrix over P
 - `test (3.12)`
 - `test (3.13)`
 
-If you drop a Python version from the matrix in `test.yml`, also drop it from the required checks; otherwise PRs will block forever waiting for a check that never runs.
+If you drop a Python version from the matrix in `test.yml`, also drop it from the required checks; otherwise PRs will block forever waiting for a check that never runs. The placeholder check rides on the `3.10` leg via an `if:` guard in `test.yml`; if you change which Python version runs that step, update the guard to match.
 
 The security scan (`security-scan.yaml`) and template sync (`template-sync.yaml`) workflows run on a schedule and do not produce per-PR checks, so they should not be added as required.
 
