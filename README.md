@@ -50,53 +50,37 @@ placeholder/
 
 ### Setup Your Plugin
 
-#### 1. Rename the directory
+#### 1. Run the customization script
 
 ```bash
-mv placeholder acme
+./bin/customize.sh <your-package-name> \
+  --author "Your Name" \
+  --email you@example.com \
+  --description "Your plugin description" \
+  --repository-url https://github.com/<your-org>/<your-repo>
 ```
 
-#### 2. Update pyproject.toml
+This renames `placeholder/` to `<your-package-name>/`, updates `pyproject.toml` (`name`, `authors`, `description`, `packages.find.include`, `pytest.testpaths`), updates `.releaserc.yaml` (`message`, `repositoryUrl`), and rewrites `from placeholder.` imports across the package.
 
-Edit the following fields in `pyproject.toml`:
+The package name must be a valid Python identifier (lowercase letters, digits, underscores; must start with a letter). All option flags are optional; if you omit them you can edit the corresponding fields by hand later.
 
-- `name`: change `"placeholder-my-plugin"` to `"acme-my-plugin"`
-- `authors`: update name and email
-- `description`: update to describe your plugin
-- `tool.setuptools.packages.find.include`: change `["placeholder*"]` to `["acme*"]`
-- `tool.pytest.ini_options.testpaths`: change `["placeholder", "tests"]` to `["acme", "tests"]`
-
-#### 3. Update .releaserc.yaml
-
-Edit the following fields in `.releaserc.yaml`:
-
-- `message`: change `mloda-plugin-template` to your package name (e.g., `"chore(release acme-my-plugin): ${nextRelease.version}"`)
-- `repositoryUrl`: change to your repository URL
-
-#### 4. Update Python imports
-
-Update imports in these files (change `from placeholder.` to `from acme.`):
-
-- `acme/feature_groups/my_plugin/__init__.py`
-- `acme/feature_groups/my_plugin/tests/test_my_feature_group.py`
-- `acme/compute_frameworks/my_plugin/__init__.py`
-- `acme/compute_frameworks/my_plugin/tests/test_my_compute_framework.py`
-- `acme/extenders/my_plugin/__init__.py`
-- `acme/extenders/my_plugin/tests/test_my_extender.py`
-
-#### 5. Verify setup
+#### 2. Verify setup
 
 ```bash
 uv venv && source .venv/bin/activate && uv sync --all-extras && tox
 ```
 
-#### 6. Remove the template-only contributor guide
+#### 3. Remove template-only files
 
-`CONTRIBUTING.md` describes how to contribute to the template repo itself; it does not apply to your plugin. Remove it after `tox` passes:
+After `tox` passes, remove the files that only exist to support the template itself:
 
 ```bash
-rm CONTRIBUTING.md
+rm CONTRIBUTING.md bin/customize.sh
 ```
+
+`CONTRIBUTING.md` describes how to contribute to the template repo; `bin/customize.sh` is a one-shot scaffold script that has nothing left to do.
+
+Also delete the `## First-time setup` section from `CLAUDE.md` and `AGENTS.md` — those instructions only apply to fresh-template repos.
 
 The remaining baseline files apply to your plugin out of the box and can be edited to match your conventions:
 

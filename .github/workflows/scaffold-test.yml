@@ -1,0 +1,50 @@
+name: Scaffold rename
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Copy template to /tmp/scaffold
+        run: |
+          mkdir -p /tmp/scaffold
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.tox' \
+            --exclude='.venv' \
+            --exclude='__pycache__' \
+            --exclude='*.egg-info' \
+            ./ /tmp/scaffold/
+
+      - name: Run bin/customize.sh against the copy
+        working-directory: /tmp/scaffold
+        run: |
+          ./bin/customize.sh acme \
+            --author "Acme CI" \
+            --email ci@example.com \
+            --description "End-to-end scaffold test" \
+            --repository-url https://github.com/acme/acme-my-plugin
+
+      - name: Install uv and tox
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install uv
+          uv tool install tox --with tox-uv
+
+      - name: Run tox on renamed scaffold
+        working-directory: /tmp/scaffold
+        run: tox
+        timeout-minutes: 3
