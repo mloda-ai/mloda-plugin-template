@@ -70,6 +70,14 @@ The package name must be a valid Python identifier (lowercase letters, digits, u
 uv venv && source .venv/bin/activate && uv sync --all-extras && tox
 ```
 
+After `tox` passes, confirm `pyproject.toml` no longer contains the template's placeholder strings:
+
+```bash
+tox -e placeholders
+```
+
+This is also enforced in CI: the `test.yml` workflow fails on scaffolded plugins until `placeholder-my-plugin`, `Your Name placeholder`, and `placeholder@placeholder.com` are gone from `pyproject.toml`. The check is skipped on the `mloda-ai/mloda-plugin-template` repository itself, where the placeholders are intentional.
+
 #### 3. Remove template-only files
 
 After `tox` passes, remove the files that only exist to support the template itself:
