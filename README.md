@@ -76,7 +76,7 @@ After `tox` passes, confirm `pyproject.toml` no longer contains the template's p
 tox -e placeholders
 ```
 
-This is also enforced in CI: the `test.yml` workflow fails on scaffolded plugins until `placeholder-my-plugin`, `Your Name placeholder`, and `placeholder@placeholder.com` are gone from `pyproject.toml`. The check is skipped on the `mloda-ai/mloda-plugin-template` repository itself, where the placeholders are intentional.
+This is also enforced in CI: the `test.yml` workflow fails on scaffolded plugins until the template's placeholder strings are removed from `pyproject.toml`. The check covers every field listed in step 2 above: `name`, `authors` (name and email), `description`, `tool.setuptools.packages.find.include`, and `tool.pytest.ini_options.testpaths`. It is skipped on the `mloda-ai/mloda-plugin-template` repository itself, where the placeholders are intentional.
 
 #### 3. Remove template-only files
 
