@@ -1,17 +1,48 @@
 # Security Policy
 
+> **Template note:** This file ships with the plugin template. If you create a
+> plugin from it, update the contact below to your own private channel (and
+> keep or remove this note as you see fit).
+
 ## Supported Versions
 
-| Version | Supported |
-| ------- | --------- |
-| latest  | ✅        |
+Security fixes are applied to the latest released version and the `main`
+branch. We do not backport fixes to older releases — please upgrade to the
+latest version before reporting.
+
+| Version        | Supported          |
+| -------------- | ------------------ |
+| Latest release | :white_check_mark: |
+| Older releases | :x:                |
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, please report it privately.
+**Please do not report security vulnerabilities through public GitHub issues,
+pull requests, or discussions.** This keeps users protected while a fix is
+prepared.
 
-**Do not file a public issue.** Send a description to the maintainers via one of:
-1. **GitHub Private Vulnerability Reporting** — use the "Report a vulnerability" link on the Security tab.
-2. **Email** — contact the maintainers directly.
+Instead, use one of these private channels:
 
-You should receive a response within 72 hours.
+1. **GitHub Private Vulnerability Reporting** (preferred) — open the **Security**
+   tab of this repository and click **Report a vulnerability**. This keeps the
+   report, discussion, and coordinated disclosure in one place.
+2. **Email** — for plugins in the mloda organization, write to
+   **security@mloda.ai**. If you forked this template, use your own address.
+
+Please include as much of the following as you can:
+
+- The type of issue (e.g. injection, path traversal, deserialization,
+  dependency vulnerability).
+- The affected module or file path (`file.py:line` if known).
+- Step-by-step reproduction or a proof of concept.
+- The potential impact and any suggested mitigation.
+
+## What to Expect
+
+- We'll get in touch to acknowledge your report.
+- We'll assess the severity and keep you updated as we work toward a fix.
+- We're happy to credit you in the advisory once it's published, unless you
+  prefer to remain anonymous.
+
+We follow coordinated disclosure: we ask that you give us a reasonable window
+to release a fix before any public disclosure.

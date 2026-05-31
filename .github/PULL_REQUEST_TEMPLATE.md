@@ -1,29 +1,29 @@
----
-name: Pull Request
-about: Submit a pull request
-title: ''
-assignees: ''
----
+<!--
+Thanks for contributing! A few notes before you submit:
+- Use a Conventional Commit style PR title (e.g. `fix:`, `feat:`, `docs:`, `chore:`).
+- Keep the description focused; delete sections that don't apply.
+-->
 
 ## Summary
 
-<!-- Briefly describe what this PR accomplishes. -->
+<!-- What does this PR change, and why? One or two sentences is plenty. -->
 
-## Related Issue
+## Related issue
 
-Closes #468
+<!-- Link the issue this closes, e.g. "Closes #123". Leave blank if none. -->
+Closes #
+
+## Type of change
+
+- [ ] Bug fix (`fix:`)
+- [ ] New feature (`feat:`)
+- [ ] Documentation (`docs:`)
+- [ ] Refactor / maintenance (`refactor:` / `chore:`)
+- [ ] Other (explain below)
 
 ## Checklist
 
-- [ ] Tests pass locally
-- [ ] New tests added for new functionality
-- [ ] Documentation updated
-- [ ] Conventional commit message format used
-
-## Type of Change
-
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Documentation update
-- [ ] Refactoring
-- [ ] Other
+- [ ] `tox` passes locally (tests, `ruff format --check`, `ruff check`, `mypy --strict`, `bandit`)
+- [ ] Tests added or updated for the change
+- [ ] Documentation updated where relevant
+- [ ] PR title follows [Conventional Commits](https://www.conventionalcommits.org/)
