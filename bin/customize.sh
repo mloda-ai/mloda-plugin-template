@@ -69,6 +69,14 @@ if [[ "$PACKAGE" == "placeholder" ]]; then
   exit 2
 fi
 
+if [[ "$PACKAGE" == "mloda" || "$PACKAGE" == "mloda_plugins" ]]; then
+  echo "Error: package name '$PACKAGE' is reserved by the mloda namespace." >&2
+  echo "The core mloda package is a shared PEP 420 namespace; a plugin that ships" >&2
+  echo "mloda/__init__.py would make mloda unimportable for everyone who installs it." >&2
+  echo "Choose a name unique to your organization (e.g. acme, my_org)." >&2
+  exit 2
+fi
+
 if ! [[ "$PACKAGE" =~ ^[a-z][a-z0-9_]*$ ]]; then
   echo "Error: package name must be lowercase letters/digits/underscores, starting with a letter." >&2
   echo "Got: $PACKAGE" >&2
