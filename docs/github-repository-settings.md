@@ -65,7 +65,7 @@ updates:
   - package-ecosystem: "uv"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     assignees:
       - "your-github-username"
     groups:
