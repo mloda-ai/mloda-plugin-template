@@ -51,6 +51,10 @@ The test workflow (`test.yml`) declares a job called `test` with a matrix over P
 
 If you drop a Python version from the matrix in `test.yml`, also drop it from the required checks; otherwise PRs will block forever waiting for a check that never runs. The placeholder check rides on the `3.10` leg via an `if:` guard in `test.yml`; if you change which Python version runs that step, update the guard to match.
 
+The scaffold-rename workflow (`scaffold-test.yml`) also runs on every PR to `main` and emits a `scaffold` check. Add it too if you want the customize-step validation to gate merges:
+
+- `scaffold`
+
 ## Dependabot reviewer
 
 `.github/dependabot.yml` does not name anyone out of the box, so dependabot PRs land without an assignee or review request. Add an `assignees:` entry so the PR appears in someone's "Assigned" feed:

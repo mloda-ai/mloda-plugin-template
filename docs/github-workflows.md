@@ -1,6 +1,6 @@
 # GitHub Workflows
 
-This project uses two GitHub Actions workflows to automate testing and releases.
+This project uses three GitHub Actions workflows to automate testing, scaffold validation, and releases.
 
 Dependency CVE scanning is left to GitHub's native Dependabot security alerts (enable them under **Settings > Code security**), with `tox -e security` (`pip-audit`) available for on-demand local scans. Pulling later template changes into a scaffolded repo is a deliberate, manual step (fetch the template remote and cherry-pick), not an automated job.
 
@@ -15,6 +15,18 @@ Dependency CVE scanning is left to GitHub's native Dependabot security alerts (e
 **Purpose:** Runs the full test suite using tox across multiple Python versions (3.10, 3.11, 3.12, 3.13). This includes pytest, ruff linting, mypy type checking, and bandit security analysis.
 
 **Requirements:** None. This workflow uses only public GitHub Actions and requires no secrets.
+
+## Scaffold Rename Workflow
+
+**File:** `.github/workflows/scaffold-test.yml`
+
+**Triggers:**
+- Push to `main`
+- Pull request to `main`
+
+**Purpose:** Copies the template to a scratch directory, runs `bin/customize.sh` against the copy, and runs tox on the renamed scaffold. This proves the customize step still produces a green plugin end to end. It emits a per-PR check named `scaffold`.
+
+**Requirements:** None. Uses only public GitHub Actions and requires no secrets.
 
 ## Release Workflow
 
