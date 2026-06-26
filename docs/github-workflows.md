@@ -23,6 +23,7 @@ Dependency CVE scanning is left to GitHub's native Dependabot security alerts (e
 **Triggers:**
 - Push to `main`
 - Pull request to `main`
+- Manual dispatch
 
 **Purpose:** Copies the template to a scratch directory, runs `bin/customize.sh` against the copy, and runs tox on the renamed scaffold. This proves the customize step still produces a green plugin end to end. It emits a per-PR check named `scaffold`.
 

@@ -13,7 +13,7 @@ The release workflow is the only one that needs secrets. Both live under **Setti
 | `SEMANTIC_RELEASE_TOKEN` | `release.yaml` (`github_release` job) | A Personal Access Token with `repo` write so semantic-release can tag the release and push the version-bump commit back to `main`. The default `GITHUB_TOKEN` cannot push to a protected branch, which is why a PAT is required. |
 | `PYPI_API_TOKEN` | `release.yaml` (`publish` job) | PyPI API token used by `twine upload`. Scope it to the project once the package is published for the first time. |
 
-See [github-workflows.md](github-workflows.md#setting-up-secrets) for the step-by-step on creating each token. The test workflow (`test.yml`) runs on the default `GITHUB_TOKEN` and needs no secrets.
+See [github-workflows.md](github-workflows.md#setting-up-secrets) for the step-by-step on creating each token. The test and scaffold workflows (`test.yml`, `scaffold-test.yml`) run on the default `GITHUB_TOKEN` and need no secrets.
 
 ### PyPI Trusted Publisher (modern alternative)
 
