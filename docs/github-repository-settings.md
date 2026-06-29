@@ -13,7 +13,7 @@ The release workflow is the only one that needs secrets. Both live under **Setti
 | `SEMANTIC_RELEASE_TOKEN` | `release.yaml` (`github_release` job) | A Personal Access Token with `repo` write so semantic-release can tag the release and push the version-bump commit back to `main`. The default `GITHUB_TOKEN` cannot push to a protected branch, which is why a PAT is required. |
 | `PYPI_API_TOKEN` | `release.yaml` (`publish` job) | PyPI API token used by `twine upload`. Scope it to the project once the package is published for the first time. |
 
-See [github-workflows.md](github-workflows.md#setting-up-secrets) for the step-by-step on creating each token. The other workflows (`test.yml`, `security-scan.yaml`, `template-sync.yaml`) run on the default `GITHUB_TOKEN` and need no secrets.
+See [github-workflows.md](github-workflows.md#setting-up-secrets) for the step-by-step on creating each token. The test and scaffold workflows (`test.yml`, `scaffold-test.yml`) run on the default `GITHUB_TOKEN` and need no secrets.
 
 ### PyPI Trusted Publisher (modern alternative)
 
@@ -51,7 +51,9 @@ The test workflow (`test.yml`) declares a job called `test` with a matrix over P
 
 If you drop a Python version from the matrix in `test.yml`, also drop it from the required checks; otherwise PRs will block forever waiting for a check that never runs. The placeholder check rides on the `3.10` leg via an `if:` guard in `test.yml`; if you change which Python version runs that step, update the guard to match.
 
-The security scan (`security-scan.yaml`) and template sync (`template-sync.yaml`) workflows run on a schedule and do not produce per-PR checks, so they should not be added as required.
+The scaffold-rename workflow (`scaffold-test.yml`) also runs on every PR to `main` and emits a `scaffold` check. Add it too if you want the customize-step validation to gate merges:
+
+- `scaffold`
 
 ## Dependabot reviewer
 
