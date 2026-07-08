@@ -54,10 +54,12 @@ Each `manifest.py` exports a list of concrete classes (`FEATURE_GROUPS`, `COMPUT
 tables. Add a new plugin by appending its class to the relevant manifest list; add a new kind of
 export only if you introduce one.
 
-If a manifest imports an optional backend (pandas, pyarrow, ...), guard the import so a missing
-dependency does not take down the whole manifest: the loader drops the entire entry point on an
-uncaught `ModuleNotFoundError` for a non-optional module, silently hiding every plugin it lists.
-Import resiliently and append only the classes whose backend is present.
+If a manifest imports an optional backend (pandas, pyarrow, ...), guard the import: both failure
+modes are traps. When the missing module is one mloda knows as optional (pandas, pyarrow, and
+similar), the loader silently skips the whole entry point, hiding every plugin it lists, including
+ones that do not need that backend. When the missing module is anything else, the loader re-raises
+and aborts discovery for the entire process. Either way, import resiliently (try/except at import
+time) and append only the classes whose backend is present.
 
 ### Key files
 
