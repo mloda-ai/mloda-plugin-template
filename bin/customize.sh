@@ -112,6 +112,9 @@ echo "==> Updating pyproject.toml"
 sed_inplace "s/^name = \"placeholder-my-plugin\"\$/name = \"${PACKAGE}-my-plugin\"/" pyproject.toml
 sed_inplace "s/^include = \[\"placeholder\\*\"\]\$/include = [\"${PACKAGE}*\"]/" pyproject.toml
 sed_inplace "s/^testpaths = \[\"placeholder\", \"tests\"\]\$/testpaths = [\"${PACKAGE}\", \"tests\"]/" pyproject.toml
+# Entry-point tables: rewrite both the label and the dotted manifest path
+# (e.g. 'placeholder = "placeholder.feature_groups.manifest:...' -> '${PACKAGE} = "${PACKAGE}.feature_groups.manifest:...').
+sed_inplace "s|^placeholder = \"placeholder\\.|${PACKAGE} = \"${PACKAGE}.|" pyproject.toml
 
 if [[ -n "$AUTHOR" || -n "$EMAIL" ]]; then
   AUTHOR_NAME="${AUTHOR:-Your Name placeholder}"

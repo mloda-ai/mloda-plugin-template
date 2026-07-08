@@ -27,20 +27,37 @@ Click *Use this template* on GitHub to scaffold a new plugin repository. See [do
 ```
 placeholder/
 ├── feature_groups/
+│   ├── manifest.py               # Entry-point manifest: FEATURE_GROUPS list
 │   └── my_plugin/
 │       ├── __init__.py           # Package exports
 │       ├── my_feature_group.py   # Example FeatureGroup implementation
 │       └── tests/
 │           └── test_my_feature_group.py
 ├── compute_frameworks/
-│   └── my_framework/
+│   ├── manifest.py               # Entry-point manifest: COMPUTE_FRAMEWORKS list
+│   └── my_plugin/
 │       ├── __init__.py
 │       └── my_compute_framework.py
 └── extenders/
-    └── my_extender/
+    ├── manifest.py               # Entry-point manifest: EXTENDERS list
+    └── my_plugin/
         ├── __init__.py
         └── my_extender.py
 ```
+
+### Plugin discovery
+
+mloda 0.9+ auto-discovers installed plugins through Python entry points, so users get your
+FeatureGroups, ComputeFrameworks, and Extenders from `PluginLoader.all()` with no manual import.
+Each `manifest.py` exports a list of concrete classes (`FEATURE_GROUPS`, `COMPUTE_FRAMEWORKS`,
+`EXTENDERS`), and `pyproject.toml` wires them up under the `[project.entry-points."mloda.*"]`
+tables. Add a new plugin by appending its class to the relevant manifest list; add a new kind of
+export only if you introduce one.
+
+If a manifest imports an optional backend (pandas, pyarrow, ...), guard the import so a missing
+dependency does not take down the whole manifest: the loader drops the entire entry point on an
+uncaught `ModuleNotFoundError` for a non-optional module, silently hiding every plugin it lists.
+Import resiliently and append only the classes whose backend is present.
 
 ### Key files
 
@@ -60,7 +77,7 @@ placeholder/
   --repository-url https://github.com/<your-org>/<your-repo>
 ```
 
-This renames `placeholder/` to `<your-package-name>/`, updates `pyproject.toml` (`name`, `authors`, `description`, `packages.find.include`, `pytest.testpaths`), updates `.releaserc.yaml` (`message`, `repositoryUrl`), and rewrites `from placeholder.` imports across the package.
+This renames `placeholder/` to `<your-package-name>/`, updates `pyproject.toml` (`name`, `authors`, `description`, `packages.find.include`, `pytest.testpaths`), updates `.releaserc.yaml` (`message`, `repositoryUrl`), rewrites the `[project.entry-points."mloda.*"]` manifest paths, and rewrites `from placeholder.` imports across the package.
 
 The package name must be a valid Python identifier (lowercase letters, digits, underscores; must start with a letter). The names `mloda` and `mloda_plugins` are reserved: the core `mloda` package is a shared PEP 420 namespace, so a plugin that shipped `mloda/__init__.py` would make mloda unimportable for everyone who installs it. Both `bin/customize.sh` and a `tox`/CI check reject these names. All option flags are optional; if you omit them you can edit the corresponding fields by hand later.
 
