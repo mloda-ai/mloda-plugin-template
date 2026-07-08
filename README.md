@@ -47,19 +47,14 @@ placeholder/
 
 ### Plugin discovery
 
-mloda 0.9+ auto-discovers installed plugins through Python entry points, so users get your
-FeatureGroups, ComputeFrameworks, and Extenders from `PluginLoader.all()` with no manual import.
-Each `manifest.py` exports a list of concrete classes (`FEATURE_GROUPS`, `COMPUTE_FRAMEWORKS`,
-`EXTENDERS`), and `pyproject.toml` wires them up under the `[project.entry-points."mloda.*"]`
-tables. Add a new plugin by appending its class to the relevant manifest list; add a new kind of
-export only if you introduce one.
+mloda 0.9+ auto-discovers installed plugins via `PluginLoader.all()`, no manual import needed. Each
+`manifest.py` lists its concrete classes (`FEATURE_GROUPS`, `COMPUTE_FRAMEWORKS`, `EXTENDERS`) and
+`pyproject.toml` wires them up under `[project.entry-points."mloda.*"]`. Add a plugin by appending
+it to the relevant list.
 
-If a manifest imports an optional backend (pandas, pyarrow, ...), guard the import: both failure
-modes are traps. When the missing module is one mloda knows as optional (pandas, pyarrow, and
-similar), the loader silently skips the whole entry point, hiding every plugin it lists, including
-ones that do not need that backend. When the missing module is anything else, the loader re-raises
-and aborts discovery for the entire process. Either way, import resiliently (try/except at import
-time) and append only the classes whose backend is present.
+If a manifest imports an optional backend (pandas, pyarrow, ...), guard the import: an uncaught
+`ModuleNotFoundError` either silently drops the whole entry point or aborts discovery. Import
+resiliently and append only the classes whose backend is present.
 
 ### Key files
 
