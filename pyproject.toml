@@ -13,6 +13,17 @@ authors = [{ name = "Your Name placeholder", email = "placeholder@placeholder.co
 dependencies = ["mloda>=0.9.0", "mloda-testing>=0.3.2"]
 requires-python = ">=3.10"
 
+# mloda 0.9 discovers installed plugins through these entry points: each resolves to a
+# manifest list of concrete classes. customize.sh rewrites the dotted paths on rename.
+[project.entry-points."mloda.feature_groups"]
+placeholder = "placeholder.feature_groups.manifest:FEATURE_GROUPS"
+
+[project.entry-points."mloda.compute_frameworks"]
+placeholder = "placeholder.compute_frameworks.manifest:COMPUTE_FRAMEWORKS"
+
+[project.entry-points."mloda.extenders"]
+placeholder = "placeholder.extenders.manifest:EXTENDERS"
+
 [project.optional-dependencies]
 dev = [
     "tox",

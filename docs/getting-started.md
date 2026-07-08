@@ -52,3 +52,11 @@ Regardless of which option you chose, follow the setup steps in the [README](../
 7. Remove `CONTRIBUTING.md` — it describes contributing to the template repo, not your plugin
 8. Keep `CODE_OF_CONDUCT.md`, `AGENTS.md`, `CLAUDE.md`, and `.github/ISSUE_TEMPLATE/` as inherited baselines; tune them later (contact email, placeholder paths, toolchain bullets) if you want
 9. Configure repository settings on GitHub: see [github-repository-settings.md](github-repository-settings.md) for the secrets, branch protection, required checks, and dependabot reviewer that the inherited workflows expect
+
+## Plugin discovery
+
+Once installed, your plugins are auto-discovered by mloda through entry points, so users reach them
+via `PluginLoader.all()` with no manual import. `customize.sh` rewrites the `[project.entry-points."mloda.*"]`
+manifest paths for you. When you add plugins, append the class to the matching `manifest.py` list; see
+[Plugin discovery](../README.md#plugin-discovery) for the resilient-import caveat when a plugin needs an
+optional backend.
