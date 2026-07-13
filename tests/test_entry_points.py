@@ -24,8 +24,12 @@ def test_entry_points_declared() -> None:
         assert any(v.endswith(suffix) for v in values), f"{group}: no entry point ending in {suffix}; got {values}"
 
 
-def test_plugin_loader_discovers_example_classes() -> None:
-    """PluginLoader.all() registers the example classes via entry points, without importing the package."""
+def test_plugin_loader_discovers_example_classes(isolated_plugin_registry: PluginRegistry) -> None:
+    """PluginLoader.all() registers the example classes via entry points, without importing the package.
+
+    isolated_plugin_registry (shipped by mloda as a pytest plugin) restores the process-global
+    registry on teardown, so this force_reload does not leak into later tests.
+    """
     PluginLoader.all(force_reload=True)
-    registered = {cls.__name__ for cls in PluginRegistry.default().registered_classes()}
+    registered = {cls.__name__ for cls in isolated_plugin_registry.registered_classes()}
     assert {"MyFeatureGroup", "MyComputeFramework", "MyExtender"} <= registered

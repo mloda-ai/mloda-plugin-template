@@ -47,7 +47,7 @@ placeholder/
 
 ### Plugin discovery
 
-mloda 0.9+ auto-discovers installed plugins via `PluginLoader.all()`, no manual import needed. Each
+mloda auto-discovers installed plugins via `PluginLoader.all()`, no manual import needed. Each
 `manifest.py` lists its concrete classes (`FEATURE_GROUPS`, `COMPUTE_FRAMEWORKS`, `EXTENDERS`) and
 `pyproject.toml` wires them up under `[project.entry-points."mloda.*"]`. Add a plugin by appending
 it to the relevant list.
