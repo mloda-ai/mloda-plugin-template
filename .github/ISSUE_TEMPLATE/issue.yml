@@ -45,4 +45,4 @@ body:
     attributes:
       label: Environment (optional, bugs only)
       description: Python version, OS, mloda version.
-      placeholder: Python 3.12, Linux, mloda 0.9.0
+      placeholder: Python 3.12, Linux, mloda 0.10.0

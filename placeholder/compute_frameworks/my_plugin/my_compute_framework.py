@@ -1,6 +1,5 @@
 """Example ComputeFramework implementation."""
 
-from typing import Optional, Set
 from uuid import UUID, uuid4
 
 from mloda.core.abstract_plugins.components.parallelization_modes import ParallelizationMode
@@ -15,8 +14,10 @@ class MyComputeFramework(ComputeFramework):
         self,
         mode: ParallelizationMode = ParallelizationMode.SYNC,
         children_if_root: frozenset[UUID] = frozenset(),
-        uuid: UUID = uuid4(),
-        function_extender: Optional[Set[Extender]] = None,
+        uuid: UUID | None = None,
+        function_extender: set[Extender] | None = None,
     ) -> None:
         """Initialize with default values for minimal instantiation."""
-        super().__init__(mode, children_if_root, uuid, function_extender)
+        # uuid defaults to None, not uuid4(): a default is evaluated once, so every
+        # instance would otherwise share one id.
+        super().__init__(mode, children_if_root, uuid or uuid4(), function_extender)
