@@ -1,6 +1,6 @@
 """Example Extender implementation."""
 
-from typing import Any, Set
+from typing import Any
 
 from mloda.core.abstract_plugins.function_extender import Extender, ExtenderHook
 
@@ -8,7 +8,7 @@ from mloda.core.abstract_plugins.function_extender import Extender, ExtenderHook
 class MyExtender(Extender):
     """Example Extender - rename and customize for your use case."""
 
-    def wraps(self) -> Set[ExtenderHook]:
+    def wraps(self) -> set[ExtenderHook]:
         """Return the set of hooks this extender wraps."""
         return set()
 
