@@ -139,6 +139,15 @@ done
 
 echo "==> Checking for stale 'placeholder' references"
 STALE="$(grep -rn 'placeholder' "$PACKAGE" pyproject.toml .releaserc.yaml || true)"
+# The author/email and description options are intentionally optional. When a
+# caller omits one of them, the corresponding template default remains until
+# the generated plugin is edited; those expected defaults are not stale paths.
+if [[ -z "$AUTHOR" || -z "$EMAIL" ]]; then
+  STALE="$(printf '%s\n' "$STALE" | grep -vE 'pyproject\.toml:[0-9]+:authors =' || true)"
+fi
+if [[ -z "$DESCRIPTION" ]]; then
+  STALE="$(printf '%s\n' "$STALE" | grep -vE 'pyproject\.toml:[0-9]+:description =' || true)"
+fi
 if [[ -n "$STALE" ]]; then
   echo "Error: stale 'placeholder' references found in customized files:" >&2
   printf '%s\n' "$STALE" >&2
