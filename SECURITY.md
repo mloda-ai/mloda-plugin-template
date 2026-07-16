@@ -7,7 +7,7 @@
 ## Supported Versions
 
 Security fixes are applied to the latest released version and the `main`
-branch. We do not backport fixes to older releases — please upgrade to the
+branch. We do not backport fixes to older releases. Please upgrade to the
 latest version before reporting.
 
 | Version        | Supported          |
@@ -23,10 +23,10 @@ prepared.
 
 Instead, use one of these private channels:
 
-1. **GitHub Private Vulnerability Reporting** (preferred) — open the **Security**
+1. **GitHub Private Vulnerability Reporting** (preferred): open the **Security**
    tab of this repository and click **Report a vulnerability**. This keeps the
    report, discussion, and coordinated disclosure in one place.
-2. **Email** — for plugins in the mloda organization, write to
+2. **Email**: for plugins in the mloda organization, write to
    **security@mloda.ai**. If you forked this template, use your own address.
 
 Please include as much of the following as you can:
