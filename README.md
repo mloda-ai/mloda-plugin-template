@@ -102,28 +102,28 @@ rm CONTRIBUTING.md bin/customize.sh
 
 `CONTRIBUTING.md` describes how to contribute to the template repo; `bin/customize.sh` is a one-shot scaffold script that has nothing left to do.
 
-Also delete the `## First-time setup` section from `CLAUDE.md` and `AGENTS.md` — those instructions only apply to fresh-template repos.
+Also delete the `## First-time setup` section from `CLAUDE.md` and `AGENTS.md`. Those instructions only apply to fresh-template repos.
 
 The remaining baseline files apply to your plugin out of the box and can be edited to match your conventions:
 
-- `AGENTS.md` and `CLAUDE.md` — toolchain and project practices for the same `tox`/ruff/mypy/bandit pipeline you inherit. Tune the bullets if you change the toolchain.
-- `CODE_OF_CONDUCT.md` — short, plain-English baseline. Update the contact (`conduct@mloda.ai` → your address) if you want enforcement to come to you.
-- `.github/ISSUE_TEMPLATE/issue.yml` — unified issue form. Update the placeholder file paths to point at your renamed package.
+- `AGENTS.md` and `CLAUDE.md`: toolchain and project practices for the same `tox`/ruff/mypy/bandit pipeline you inherit. Tune the bullets if you change the toolchain.
+- `CODE_OF_CONDUCT.md`: short, plain-English baseline. Update the contact (`conduct@mloda.ai` → your address) if you want enforcement to come to you.
+- `.github/ISSUE_TEMPLATE/issue.yml`: unified issue form. Update the placeholder file paths to point at your renamed package.
 
 You may also want to replace this `README.md` with one that describes your plugin.
 
 ### Where to next
 
-- **[mloda-registry/docs/guides/](https://github.com/mloda-ai/mloda-registry/tree/main/docs/guides/)** — full plugin development walkthrough (FeatureGroups, ComputeFrameworks, Extenders, packaging, publishing).
-- **[mloda](https://github.com/mloda-ai/mloda)** — core framework reference.
-- **[Claude Code skills](https://github.com/mloda-ai/mloda-registry/tree/main/.claude/skills/)** — pattern guidance and best practices for AI-assisted plugin development.
-- **[docs/github-workflows.md](docs/github-workflows.md)** — CI/CD setup and required secrets for the included workflows.
-- **[docs/github-repository-settings.md](docs/github-repository-settings.md)** — repository-side settings (secrets, branch protection, required checks, dependabot reviewer) you should configure after scaffolding.
+- **[mloda-registry/docs/guides/](https://github.com/mloda-ai/mloda-registry/tree/main/docs/guides/)**: full plugin development walkthrough (FeatureGroups, ComputeFrameworks, Extenders, packaging, publishing).
+- **[mloda](https://github.com/mloda-ai/mloda)**: core framework reference.
+- **[Claude Code skills](https://github.com/mloda-ai/mloda-registry/tree/main/.claude/skills/)**: pattern guidance and best practices for AI-assisted plugin development.
+- **[docs/github-workflows.md](docs/github-workflows.md)**: CI/CD setup and required secrets for the included workflows.
+- **[docs/github-repository-settings.md](docs/github-repository-settings.md)**: repository-side settings (secrets, branch protection, required checks, dependabot reviewer) you should configure after scaffolding.
 
 ## Contribute to this template
 
 This section is for people improving the scaffold itself (CI workflows, dev tooling, docs, examples). See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor guide. Quick pointers:
 
 - [Code of Conduct](CODE_OF_CONDUCT.md)
-- [AGENTS.md](AGENTS.md) — agent guidance, project practices, issue creation
+- [AGENTS.md](AGENTS.md): agent guidance, project practices, issue creation
 - [Issue template](.github/ISSUE_TEMPLATE/issue.yml)
