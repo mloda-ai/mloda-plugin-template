@@ -132,6 +132,15 @@ if [[ -n "$REPOSITORY_URL" ]]; then
   sed_inplace "s|^repositoryUrl: .*|repositoryUrl: \"${REPOSITORY_URL}\"|" .releaserc.yaml
 fi
 
+ISSUE_TEMPLATE=".github/ISSUE_TEMPLATE/issue.yml"
+if [[ -f "$ISSUE_TEMPLATE" ]]; then
+  echo "==> Updating ${ISSUE_TEMPLATE}"
+  # Only 'placeholder/' path prefixes. The form's own field key is spelled
+  # 'placeholder:', so a bare word rewrite here would rename every YAML key
+  # and break the issue form.
+  sed_inplace "s|placeholder/|${PACKAGE}/|g" "$ISSUE_TEMPLATE"
+fi
+
 echo "==> Updating Python imports under ${PACKAGE}/"
 find "$PACKAGE" -type f -name '*.py' -print0 | while IFS= read -r -d '' f; do
   sed_inplace "s/from placeholder\\./from ${PACKAGE}./g; s/import placeholder\\./import ${PACKAGE}./g" "$f"
@@ -147,6 +156,12 @@ if [[ -z "$AUTHOR" || -z "$EMAIL" ]]; then
 fi
 if [[ -z "$DESCRIPTION" ]]; then
   STALE="$(printf '%s\n' "$STALE" | grep -vE 'pyproject\.toml:[0-9]+:description =' || true)"
+fi
+# The issue form is checked for stale paths only: 'placeholder:' is one of its
+# own field keys and must survive.
+if [[ -f "$ISSUE_TEMPLATE" ]]; then
+  STALE="$(printf '%s\n%s\n' "$STALE" "$(grep -Hn 'placeholder/' "$ISSUE_TEMPLATE" || true)")"
+  STALE="$(printf '%s\n' "$STALE" | grep -v '^$' || true)"
 fi
 if [[ -n "$STALE" ]]; then
   echo "Error: stale 'placeholder' references found in customized files:" >&2
