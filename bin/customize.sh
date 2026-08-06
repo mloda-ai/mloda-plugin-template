@@ -17,7 +17,6 @@ Options:
   --author "Your Name"        Set authors[].name in pyproject.toml
   --email you@example.com     Set authors[].email in pyproject.toml
   --description "..."         Set project.description in pyproject.toml
-                              (must not contain the '|' character)
   --repository-url URL        Set repositoryUrl in .releaserc.yaml
   -h, --help                  Show this message
 
@@ -83,10 +82,15 @@ if ! [[ "$PACKAGE" =~ ^[a-z][a-z0-9_]*$ ]]; then
   exit 2
 fi
 
-if [[ "$DESCRIPTION" == *"|"* ]]; then
-  echo "Error: --description must not contain the '|' character." >&2
-  exit 2
-fi
+for opt_pair in "--author:$AUTHOR" "--email:$EMAIL" "--description:$DESCRIPTION" "--repository-url:$REPOSITORY_URL"; do
+  opt_name="${opt_pair%%:*}"
+  opt_value="${opt_pair#*:}"
+  if [[ "$opt_value" == *$'\n'* ]]; then
+    echo "Error: ${opt_name} must not contain a newline." >&2
+    exit 2
+  fi
+done
+unset opt_pair opt_name opt_value
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
@@ -105,6 +109,15 @@ sed_inplace() {
   rm -f "${file}.bak"
 }
 
+# Make a user-supplied value safe to paste into a sed replacement.
+# Three characters need escaping there: the backslash (starts an escape), '&'
+# (expands to the whole matched line), and '|' (the delimiter every
+# value-bearing substitution below uses). Without this, --author "Ben & Jerry"
+# silently inlines the old line, and "A|B" aborts sed mid-run.
+escape_replacement() {
+  printf '%s' "$1" | sed -e 's/[\\&|]/\\&/g'
+}
+
 echo "==> Renaming placeholder/ to ${PACKAGE}/"
 mv placeholder "$PACKAGE"
 
@@ -117,19 +130,19 @@ sed_inplace "s/^testpaths = \[\"placeholder\", \"tests\"\]\$/testpaths = [\"${PA
 sed_inplace "s|^placeholder = \"placeholder\\.|${PACKAGE} = \"${PACKAGE}.|" pyproject.toml
 
 if [[ -n "$AUTHOR" || -n "$EMAIL" ]]; then
-  AUTHOR_NAME="${AUTHOR:-Your Name placeholder}"
-  AUTHOR_EMAIL="${EMAIL:-placeholder@placeholder.com}"
+  AUTHOR_NAME="$(escape_replacement "${AUTHOR:-Your Name placeholder}")"
+  AUTHOR_EMAIL="$(escape_replacement "${EMAIL:-placeholder@placeholder.com}")"
   sed_inplace "s|^authors = .*|authors = [{ name = \"${AUTHOR_NAME}\", email = \"${AUTHOR_EMAIL}\" }]|" pyproject.toml
 fi
 
 if [[ -n "$DESCRIPTION" ]]; then
-  sed_inplace "s|^description = .*|description = \"${DESCRIPTION}\"|" pyproject.toml
+  sed_inplace "s|^description = .*|description = \"$(escape_replacement "$DESCRIPTION")\"|" pyproject.toml
 fi
 
 echo "==> Updating .releaserc.yaml"
 sed_inplace "s|chore(release mloda-plugin-template):|chore(release ${PACKAGE}-my-plugin):|" .releaserc.yaml
 if [[ -n "$REPOSITORY_URL" ]]; then
-  sed_inplace "s|^repositoryUrl: .*|repositoryUrl: \"${REPOSITORY_URL}\"|" .releaserc.yaml
+  sed_inplace "s|^repositoryUrl: .*|repositoryUrl: \"$(escape_replacement "$REPOSITORY_URL")\"|" .releaserc.yaml
 fi
 
 echo "==> Updating Python imports under ${PACKAGE}/"
