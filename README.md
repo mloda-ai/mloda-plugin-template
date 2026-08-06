@@ -37,13 +37,20 @@ placeholder/
 │   ├── manifest.py               # Entry-point manifest: COMPUTE_FRAMEWORKS list
 │   └── my_plugin/
 │       ├── __init__.py
-│       └── my_compute_framework.py
+│       ├── my_compute_framework.py
+│       └── tests/
+│           └── test_my_compute_framework.py
 └── extenders/
     ├── manifest.py               # Entry-point manifest: EXTENDERS list
     └── my_plugin/
         ├── __init__.py
-        └── my_extender.py
+        ├── my_extender.py
+        └── tests/
+            └── test_my_extender.py
 ```
+
+Each plugin kind ships an example test next to its implementation — put yours in the same
+place.
 
 ### Plugin discovery
 
