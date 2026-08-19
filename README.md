@@ -37,13 +37,20 @@ placeholder/
 │   ├── manifest.py               # Entry-point manifest: COMPUTE_FRAMEWORKS list
 │   └── my_plugin/
 │       ├── __init__.py
-│       └── my_compute_framework.py
+│       ├── my_compute_framework.py
+│       └── tests/
+│           └── test_my_compute_framework.py
 └── extenders/
     ├── manifest.py               # Entry-point manifest: EXTENDERS list
     └── my_plugin/
         ├── __init__.py
-        └── my_extender.py
+        ├── my_extender.py
+        └── tests/
+            └── test_my_extender.py
 ```
+
+Each plugin kind ships an example test next to its implementation, put yours in the same
+place.
 
 ### Plugin discovery
 
@@ -108,7 +115,7 @@ The remaining baseline files apply to your plugin out of the box and can be edit
 
 - `AGENTS.md` and `CLAUDE.md`: toolchain and project practices for the same `tox`/ruff/mypy/bandit pipeline you inherit. Tune the bullets if you change the toolchain.
 - `CODE_OF_CONDUCT.md`: short, plain-English baseline. Update the contact (`conduct@mloda.ai` → your address) if you want enforcement to come to you.
-- `.github/ISSUE_TEMPLATE/issue.yml`: unified issue form. Update the placeholder file paths to point at your renamed package.
+- `.github/ISSUE_TEMPLATE/issue.yml`: unified issue form. `bin/customize.sh` already repoints its example file paths at your renamed package; edit the field wording if you want examples drawn from your own plugin.
 
 You may also want to replace this `README.md` with one that describes your plugin.
 
