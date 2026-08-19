@@ -13,3 +13,6 @@ updates:
       all-dependencies:
         patterns:
           - "*"
+    ignore:
+      - dependency-name: "mloda"
+        update-types: ["version-update:semver-minor", "version-update:semver-major"]

@@ -44,6 +44,13 @@ jobs:
           python -m pip install uv
           uv tool install tox --with tox-uv
 
+      - name: Refresh uv.lock for the renamed package
+        # customize.sh renames the package in pyproject.toml but does not
+        # touch uv.lock; tox now installs from the lock via --frozen, so the
+        # lock must be regenerated to match before tox runs.
+        working-directory: /tmp/scaffold
+        run: uv lock
+
       - name: Run tox on renamed scaffold
         working-directory: /tmp/scaffold
         run: tox
