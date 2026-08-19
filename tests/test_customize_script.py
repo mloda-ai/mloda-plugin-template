@@ -12,6 +12,43 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ISSUE_TEMPLATE = Path(".github/ISSUE_TEMPLATE/issue.yml")
 
+# A minimal stand-in for .github/ISSUE_TEMPLATE/issue.yml, not a copy of the
+# real file. The CI "scaffold" job runs bin/customize.sh for real against a
+# full copy of this repo before running the test suite against the result,
+# so by the time these tests run, REPO_ROOT's own issue template may already
+# have had its 'placeholder/' paths rewritten. A fixture copied from
+# REPO_ROOT at test time would silently stop exercising the rewrite in that
+# case; a fixed fixture always contains 'placeholder/' to rewrite.
+_ISSUE_TEMPLATE_FIXTURE = """\
+name: Issue
+body:
+  - type: textarea
+    id: pointers
+    attributes:
+      label: Code pointers (optional)
+      placeholder: e.g. placeholder/feature_groups/my_plugin/my_feature_group.py:42
+  - type: textarea
+    id: dod
+    attributes:
+      label: Definition of done (optional)
+      placeholder: Behavior, tests, docs.
+  - type: input
+    id: environment
+    attributes:
+      label: Environment (optional, bugs only)
+      placeholder: Python 3.12, Linux, mloda 0.10.0
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      placeholder: One-sentence description.
+  - type: textarea
+    id: details
+    attributes:
+      label: Reproduction or motivation
+      placeholder: Steps to reproduce.
+"""
+
 
 def _make_scaffold(tmp_path: Path, extra_pyproject: str = "") -> Path:
     root = tmp_path / "scaffold"
@@ -24,7 +61,7 @@ def _make_scaffold(tmp_path: Path, extra_pyproject: str = "") -> Path:
     shutil.copy2(REPO_ROOT / "pyproject.toml", root / "pyproject.toml")
     shutil.copy2(REPO_ROOT / ".releaserc.yaml", root / ".releaserc.yaml")
     (root / ISSUE_TEMPLATE).parent.mkdir(parents=True)
-    shutil.copy2(REPO_ROOT / ISSUE_TEMPLATE, root / ISSUE_TEMPLATE)
+    (root / ISSUE_TEMPLATE).write_text(_ISSUE_TEMPLATE_FIXTURE, encoding="utf-8")
     if extra_pyproject:
         pyproject = root / "pyproject.toml"
         pyproject.write_text(
@@ -42,8 +79,8 @@ def _line_starting_with(path: Path, prefix: str) -> str:
 
 
 def _read_template() -> str:
-    """The template repository's own copy of the issue form."""
-    return (REPO_ROOT / ISSUE_TEMPLATE).read_text(encoding="utf-8")
+    """The fixture issue form content installed by ``_make_scaffold``."""
+    return _ISSUE_TEMPLATE_FIXTURE
 
 
 def _run_customize(root: Path, *args: str) -> subprocess.CompletedProcess[str]:
