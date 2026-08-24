@@ -2,7 +2,7 @@
 
 This project uses three GitHub Actions workflows to automate testing, scaffold validation, and releases.
 
-Dependency CVE scanning is left to GitHub's native Dependabot security alerts (enable them under **Settings > Code security**), with `tox -e security` (`pip-audit`) available for on-demand local scans. Pulling later template changes into a scaffolded repo is a deliberate, manual step (fetch the template remote and cherry-pick), not an automated job.
+Dependency CVE scanning is left to GitHub's native Dependabot security alerts (enable them under **Settings > Code security**), with `tox -e security` (`pip-audit`) available for on-demand local scans. Pulling later template changes into a scaffolded repo is a deliberate, manual step (fetch the template remote and cherry-pick), not an automated job; see [pulling-template-updates.md](pulling-template-updates.md) for the commands and the two conflicts you should expect.
 
 ## Test Workflow
 
