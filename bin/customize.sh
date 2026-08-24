@@ -82,6 +82,15 @@ if ! [[ "$PACKAGE" =~ ^[a-z][a-z0-9_]*$ ]]; then
   exit 2
 fi
 
+if [[ -e "$PACKAGE" ]]; then
+  echo "Error: '$PACKAGE' already exists in the repository root." >&2
+  echo "The rename below is 'mv placeholder $PACKAGE', and mv moves the source *inside*" >&2
+  echo "an existing directory rather than failing, which would leave the package at" >&2
+  echo "$PACKAGE/placeholder/ while every rewritten path points at $PACKAGE/." >&2
+  echo "Choose a name that is not already taken (e.g. acme, my_org)." >&2
+  exit 2
+fi
+
 for opt_pair in "--author:$AUTHOR" "--email:$EMAIL" "--description:$DESCRIPTION" "--repository-url:$REPOSITORY_URL"; do
   opt_name="${opt_pair%%:*}"
   opt_value="${opt_pair#*:}"
