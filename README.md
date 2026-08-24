@@ -126,6 +126,7 @@ You may also want to replace this `README.md` with one that describes your plugi
 - **[Claude Code skills](https://github.com/mloda-ai/mloda-registry/tree/main/.claude/skills/)**: pattern guidance and best practices for AI-assisted plugin development.
 - **[docs/github-workflows.md](docs/github-workflows.md)**: CI/CD setup and required secrets for the included workflows.
 - **[docs/github-repository-settings.md](docs/github-repository-settings.md)**: repository-side settings (secrets, branch protection, required checks, dependabot reviewer) you should configure after scaffolding.
+- **[docs/pulling-template-updates.md](docs/pulling-template-updates.md)**: how to pull a later template fix into an already-scaffolded repo, and how to resolve the conflicts scaffolding causes.
 
 ## Contribute to this template
 
