@@ -42,12 +42,13 @@ You have three options:
 
 ## Required status checks
 
-The test workflow (`test.yml`) declares a job called `test` with a matrix over Python `3.10`, `3.11`, `3.12`, and `3.13`. GitHub presents the matrix-expanded check names in the branch-protection dropdown, not the workflow name. Add all four:
+The test workflow (`test.yml`) declares a job called `test` with a matrix over Python `3.10`, `3.11`, `3.12`, `3.13`, and `3.14`. GitHub presents the matrix-expanded check names in the branch-protection dropdown, not the workflow name. Add all five:
 
 - `test (3.10)`
 - `test (3.11)`
 - `test (3.12)`
 - `test (3.13)`
+- `test (3.14)`
 
 If you drop a Python version from the matrix in `test.yml`, also drop it from the required checks; otherwise PRs will block forever waiting for a check that never runs. The placeholder check rides on the `3.10` leg via an `if:` guard in `test.yml`; if you change which Python version runs that step, update the guard to match.
 
