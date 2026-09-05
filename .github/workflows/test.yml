@@ -2,10 +2,22 @@ name: Tests
 
 on:
   push:
-    branches: ["*"]
+    # "*" only matches branch names without a slash, so this never actually fired for
+    # this repo's chore/, fix/, feat/, etc. branches, only for main. "**" fixes that.
+    branches: ["**"]
   pull_request:
     branches: [main]
   workflow_dispatch:  # Allow manual triggering
+
+# With push now covering every branch, a same-repo PR's branch fires both push and
+# pull_request for the same commit; group those under the branch name so the newer
+# run cancels the older one. A fork PR's head branch never triggers push here, so it
+# gets its own group keyed by PR number, keeping same-named branches from different
+# forks from cancelling each other's runs.
+concurrency:
+  group: ${{ github.workflow }}-${{ (github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref) || (github.event.pull_request && format('pr-{0}', github.event.pull_request.number)) || github.ref_name }}
+  # Never cancel a main run: two quick merges must not leave the first commit's result missing.
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
 
 jobs:
   test:

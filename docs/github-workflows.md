@@ -12,6 +12,8 @@ Dependency CVE scanning is left to GitHub's native Dependabot security alerts (e
 - Push to any branch
 - Pull request to `main`
 
+The push filter is `"**"`, not `"*"`: GitHub's glob matching treats `*` as "no slash", so it would silently exclude every `chore/`, `fix/`, `feat/`-style branch name and only ever fire on `main`. A same-repo branch with an open PR still fires both push and pull_request for the same commit; a `concurrency` group keyed on branch name cancels the older run so only one set of matrix jobs completes. A fork PR's branch never triggers push here, so it gets its own group keyed by PR number instead, so two forks with a same-named branch don't cancel each other.
+
 **Purpose:** Runs the full test suite using tox across multiple Python versions (3.10, 3.11, 3.12, 3.13). This includes pytest, ruff linting, mypy type checking, and bandit security analysis.
 
 **Requirements:** None. This workflow uses only public GitHub Actions and requires no secrets.
