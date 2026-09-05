@@ -50,7 +50,7 @@ The test workflow (`test.yml`) declares a job called `test` with a matrix over P
 - `test (3.13)`
 - `test (3.14)`
 
-If you drop a Python version from the matrix in `test.yml`, also drop it from the required checks; otherwise PRs will block forever waiting for a check that never runs. The placeholder check rides on the `3.10` leg via an `if:` guard in `test.yml`; if you change which Python version runs that step, update the guard to match.
+If you drop a Python version from the matrix in `test.yml`, also drop it from the required checks; otherwise PRs will block forever waiting for a check that never runs. Conversely, if you add a version to the matrix, add its `test (X.Y)` check here too, or new legs run without gating merges. The placeholder check rides on the `3.10` leg via an `if:` guard in `test.yml`; if you change which Python version runs that step, update the guard to match.
 
 The scaffold-rename workflow (`scaffold-test.yml`) also runs on every PR to `main` and emits a `scaffold` check. Add it too if you want the customize-step validation to gate merges:
 
