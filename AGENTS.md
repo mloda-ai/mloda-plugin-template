@@ -6,7 +6,7 @@ If a `placeholder/` directory still exists in this repo, the template has not be
 
 1. Run `bin/customize.sh <package-name>` with appropriate `--author`, `--email`, `--description`, and `--repository-url` flags (see `### Setup Your Plugin` in [README.md](README.md) for details). This handles the directory rename, `pyproject.toml`/`.releaserc.yaml` edits, and `from placeholder.` import rewrites in one shot.
 2. Verify with `uv venv && source .venv/bin/activate && uv sync --all-extras && tox`.
-3. Remove the template-only files: `rm CONTRIBUTING.md bin/customize.sh`.
+3. Remove the template-only files: `rm CONTRIBUTING.md bin/customize.sh tests/test_customize_script.py`. The test copies `customize.sh` into a scratch scaffold, so it must be removed together with the script or `tox` fails.
 4. 4. **Delete this `## First-time setup` section from both `CLAUDE.md` and `AGENTS.md`**. It only applies to fresh-template repos and would be misleading once the placeholder is gone. gone.
 
 Must read [README.md](README.md) first.

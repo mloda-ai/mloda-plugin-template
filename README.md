@@ -104,10 +104,10 @@ This is also enforced in CI: the `test.yml` workflow fails on scaffolded plugins
 After `tox` passes, remove the files that only exist to support the template itself:
 
 ```bash
-rm CONTRIBUTING.md bin/customize.sh
+rm CONTRIBUTING.md bin/customize.sh tests/test_customize_script.py
 ```
 
-`CONTRIBUTING.md` describes how to contribute to the template repo; `bin/customize.sh` is a one-shot scaffold script that has nothing left to do.
+`CONTRIBUTING.md` describes how to contribute to the template repo; `bin/customize.sh` is a one-shot scaffold script that has nothing left to do. `tests/test_customize_script.py` tests that script and copies it into a scratch scaffold, so it must go with it — leaving it behind fails `tox` with a `FileNotFoundError` on every subsequent run. The other test files (`test_entry_points.py`, `test_mloda_imports.py`, `test_reserved_namespace.py`) are rename-safe and should stay.
 
 Also delete the `## First-time setup` section from `CLAUDE.md` and `AGENTS.md`. Those instructions only apply to fresh-template repos.
 
