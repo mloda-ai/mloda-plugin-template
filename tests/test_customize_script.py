@@ -158,6 +158,24 @@ def test_reserved_namespace_names_are_rejected(tmp_path: Path, reserved: str) ->
     _assert_rejected(result, root, f"package name '{reserved}' is reserved by the mloda namespace")
 
 
+@pytest.mark.parametrize("existing", ["bin", "docs"])
+def test_package_name_colliding_with_an_existing_path_is_rejected(tmp_path: Path, existing: str) -> None:
+    """A name that already exists must fail fast rather than nest placeholder/ inside it.
+
+    The rename is a plain ``mv placeholder "$PACKAGE"``, and mv moves the source
+    *into* an existing destination directory instead of erroring. Without this
+    guard, ``customize.sh docs`` produced ``docs/placeholder/`` while every path
+    the script rewrote pointed at ``docs/``.
+    """
+    root = _make_scaffold(tmp_path)
+    (root / existing).mkdir(exist_ok=True)
+
+    result = _run_customize(root, existing)
+
+    _assert_rejected(result, root, f"'{existing}' already exists in the repository root")
+    assert not (root / existing / "placeholder").exists(), "the scaffold must not be nested inside the existing path"
+
+
 @pytest.mark.parametrize(
     "name",
     ["9acme", "Acme", "my-plugin", "_acme", "acme.plugin", "acme plugin"],
