@@ -8,7 +8,6 @@ from pathlib import Path
 
 import pytest
 
-
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ISSUE_TEMPLATE = Path(".github/ISSUE_TEMPLATE/issue.yml")
 

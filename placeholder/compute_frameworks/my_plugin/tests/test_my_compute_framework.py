@@ -2,8 +2,9 @@
 
 from uuid import uuid4
 
-from placeholder.compute_frameworks.my_plugin import MyComputeFramework
 from mloda.provider import ComputeFramework
+
+from placeholder.compute_frameworks.my_plugin import MyComputeFramework
 
 
 def test_extends_base() -> None:
