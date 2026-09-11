@@ -1,7 +1,8 @@
 """Tests for MyFeatureGroup."""
 
-from placeholder.feature_groups.my_plugin import MyFeatureGroup
 from mloda.provider import FeatureGroup
+
+from placeholder.feature_groups.my_plugin import MyFeatureGroup
 
 
 def test_extends_base() -> None:
