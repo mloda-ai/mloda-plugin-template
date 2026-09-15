@@ -38,6 +38,15 @@ jobs:
             --description "End-to-end scaffold test" \
             --repository-url https://github.com/acme/acme-my-plugin
 
+      - name: Remove template-only files, exactly as the README instructs
+        # Keeps the documented cleanup step honest: tests/test_customize_script.py
+        # copies bin/customize.sh into a scratch scaffold, so leaving it behind
+        # once the script is gone fails tox in every scaffolded plugin. Without
+        # this step the scaffold job runs tox against a tree no real plugin ever
+        # has, and that breakage stays invisible in CI.
+        working-directory: /tmp/scaffold
+        run: rm CONTRIBUTING.md bin/customize.sh tests/test_customize_script.py
+
       - name: Install uv and tox
         run: |
           python -m pip install --upgrade pip

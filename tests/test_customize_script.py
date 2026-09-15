@@ -176,6 +176,51 @@ def test_package_name_colliding_with_an_existing_path_is_rejected(tmp_path: Path
     assert not (root / existing / "placeholder").exists(), "the scaffold must not be nested inside the existing path"
 
 
+def test_collision_is_detected_from_any_working_directory(tmp_path: Path) -> None:
+    """The collision guard must test the repository root, not the caller's cwd.
+
+    Every other test invokes the script with ``cwd=root``, where the two
+    directories happen to coincide. Run from anywhere else, a guard placed
+    before the script's own ``cd "$REPO_ROOT"`` would check the wrong tree:
+    it would miss a real collision and nest the scaffold anyway, and would
+    reject a valid name whose directory merely exists next to the caller.
+    """
+    root = _make_scaffold(tmp_path)
+    (root / "docs").mkdir()
+    elsewhere = tmp_path / "elsewhere"
+    elsewhere.mkdir()
+
+    result = subprocess.run(
+        ["bash", str(root / "bin" / "customize.sh"), "docs"],
+        cwd=elsewhere,
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+
+    _assert_rejected(result, root, "'docs' already exists in the repository root")
+    assert not (root / "docs" / "placeholder").exists(), "the scaffold must not be nested inside the existing path"
+
+
+def test_a_free_name_is_not_rejected_by_an_unrelated_caller_directory(tmp_path: Path) -> None:
+    """A directory next to the caller must not shadow a name that is free in the repo."""
+    root = _make_scaffold(tmp_path)
+    elsewhere = tmp_path / "elsewhere"
+    (elsewhere / "acme").mkdir(parents=True)
+
+    result = subprocess.run(
+        ["bash", str(root / "bin" / "customize.sh"), "acme"],
+        cwd=elsewhere,
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert (root / "acme").is_dir()
+    assert not (root / "placeholder").exists()
+
+
 @pytest.mark.parametrize(
     "name",
     ["9acme", "Acme", "my-plugin", "_acme", "acme.plugin", "acme plugin"],
