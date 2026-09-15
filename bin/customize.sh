@@ -199,6 +199,6 @@ Next steps:
   1. Verify the build:
        uv venv && source .venv/bin/activate && uv sync --all-extras && tox
   2. Remove template-only files:
-       rm CONTRIBUTING.md bin/customize.sh
+       rm CONTRIBUTING.md bin/customize.sh tests/test_customize_script.py
   3. Delete the '## First-time setup' section from CLAUDE.md and AGENTS.md.
 EOF
