@@ -71,7 +71,7 @@ correct file. The marker shows the mapping on both sides:
 
 ```
 <<<<<<< HEAD:acme/extenders/my_plugin/tests/test_my_extender.py
-from acme.extenders.my_plugin import MyExtender
+from acme.extenders.my_plugin.my_extender import MyExtender
 =======
 from placeholder.extenders.my_plugin.my_extender import MyExtender
 >>>>>>> (fix(customize): ...):placeholder/extenders/my_plugin/tests/test_my_extender.py
@@ -106,5 +106,7 @@ Check that nothing reintroduced the template's placeholder strings:
 git grep -n placeholder -- . ':!docs/'
 ```
 
-The `tox` placeholder check enforces this for `pyproject.toml`, but a
-hand-resolved conflict can leave `placeholder` elsewhere.
+CI enforces this for `pyproject.toml` alone, through a separate `tox -e
+placeholders` environment that the default `tox` gate does not run. A
+hand-resolved conflict can leave `placeholder` anywhere else, so run the grep
+yourself.
