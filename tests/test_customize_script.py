@@ -372,3 +372,24 @@ def test_unexpected_entry_point_placeholder_still_fails(tmp_path: Path) -> None:
 
     assert result.returncode == 1
     assert "stale 'placeholder' references" in result.stderr
+
+
+def test_printed_cleanup_hint_matches_the_readme(tmp_path: Path) -> None:
+    """The hint the script prints must name the same files the README does.
+
+    The script prints its cleanup command on screen the moment scaffolding
+    finishes, which is when people actually run it, so a hint that drifts from
+    the docs is the version that gets followed. It once said
+    ``rm CONTRIBUTING.md bin/customize.sh`` while the docs had already learned
+    to drop tests/test_customize_script.py too, and following it broke tox for
+    every scaffolded plugin. Nothing else covers this: the scaffold CI job runs
+    the documented command rather than the printed one.
+    """
+    documented = _line_starting_with(REPO_ROOT / "README.md", "rm CONTRIBUTING.md")
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, "acme")
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    printed = [line.strip() for line in result.stdout.splitlines() if line.strip().startswith("rm ")]
+    assert printed == [documented], f"script prints {printed}, README documents {documented!r}"
