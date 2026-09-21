@@ -9,8 +9,10 @@ Dependency CVE scanning is left to GitHub's native Dependabot security alerts (e
 **File:** `.github/workflows/test.yml`
 
 **Triggers:**
-- Push to any branch
+- Push to any branch, including branch names that contain a `/` such as `feat/my-change`
 - Pull request to `main`
+
+A pull request into another feature branch (a stacked pull request) shows the checks from the push run on its head commit, so it needs no separate trigger.
 
 **Purpose:** Runs the full test suite using tox across multiple Python versions (3.10, 3.11, 3.12, 3.13, 3.14). This includes pytest, ruff linting, mypy type checking, and bandit security analysis.
 
