@@ -11,9 +11,9 @@ exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for 
 exclude-newer-span = "P7D"
 
 [options.exclude-newer-package]
+mloda-testing = "2027-01-01T00:00:00Z"
 mloda = "2027-01-01T00:00:00Z"
 mloda-registry = "2027-01-01T00:00:00Z"
-mloda-testing = "2027-01-01T00:00:00Z"
 
 [[package]]
 name = "ast-serialize"
@@ -126,7 +126,7 @@ name = "exceptiongroup"
 version = "1.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/50/79/66800aadf48771f6b62f7eb014e352e5d06856655206165d775e675a02c9/exceptiongroup-1.3.1.tar.gz", hash = "sha256:8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219", size = 30371, upload-time = "2025-11-21T23:01:54.787Z" }
 wheels = [
@@ -304,15 +304,15 @@ wheels = [
 
 [[package]]
 name = "mloda"
-version = "0.13.0"
+version = "0.14.0"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f8/e8/e47ceae4da7ee3c320fe594ecc189877bcd8f916e19defad914157cdeea3/mloda-0.13.0-py3-none-any.whl", hash = "sha256:7046ee765b78d608b4f9379e1e008abb72a8551537a4e495462384ee06860401", size = 570613, upload-time = "2026-09-14T08:31:40.089Z" },
+    { url = "https://files.pythonhosted.org/packages/9a/c3/cf2567d0c4f78ad7d3ea6c30efe67e5eb1e14e63e12d8009c6baa136f3ef/mloda-0.14.0-py3-none-any.whl", hash = "sha256:783313ed9cda0c25619085f4ce9e34eb3eec78425895963a6328ddf5d1045eb7", size = 599228, upload-time = "2026-09-24T11:20:23.5Z" },
 ]
 
 [[package]]
 name = "mloda-testing"
-version = "0.4.7"
+version = "0.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mloda" },
@@ -320,7 +320,7 @@ dependencies = [
     { name = "pytest" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c6/61/56b91068b5af82cf301d468668d57c12e6aa1dd2e13795da749652faa863/mloda_testing-0.4.7-py3-none-any.whl", hash = "sha256:5c5ec25fe8f0db008b8e858a77457c9e9709d5668c00f5d25e4c7543e5091c41", size = 155022, upload-time = "2026-09-16T15:16:31.314Z" },
+    { url = "https://files.pythonhosted.org/packages/bf/67/d1b63b08af68c18fb7009b9ba6bd5c539887484f23340e73dc224a48be40/mloda_testing-0.8.0-py3-none-any.whl", hash = "sha256:abb513abb519875cfd87382955054970e354c659b6bbe489583ac3a4aa35ca8a", size = 227635, upload-time = "2026-10-05T08:16:13.569Z" },
 ]
 
 [[package]]
@@ -440,8 +440,8 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "bandit", marker = "extra == 'dev'" },
-    { name = "mloda", specifier = ">=0.13.0,<0.14.0" },
-    { name = "mloda-testing", specifier = ">=0.4.7" },
+    { name = "mloda", specifier = ">=0.14.0,<0.15.0" },
+    { name = "mloda-testing", specifier = ">=0.8.0" },
     { name = "mypy", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "ruff", marker = "extra == 'dev'" },
