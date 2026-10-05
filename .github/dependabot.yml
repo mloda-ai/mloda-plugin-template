@@ -13,6 +13,11 @@ updates:
       all-dependencies:
         patterns:
           - "*"
+    # mloda-testing and mloda-registry minors track mloda minors, so all three move together by hand.
     ignore:
       - dependency-name: "mloda"
+        update-types: ["version-update:semver-minor", "version-update:semver-major"]
+      - dependency-name: "mloda-testing"
+        update-types: ["version-update:semver-minor", "version-update:semver-major"]
+      - dependency-name: "mloda-registry"
         update-types: ["version-update:semver-minor", "version-update:semver-major"]
