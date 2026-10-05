@@ -58,5 +58,5 @@ Regardless of which option you chose, follow the setup steps in the [README](../
 Once installed, your plugins are auto-discovered by mloda through entry points, so users reach them
 via `PluginLoader.all()` with no manual import. `customize.sh` rewrites the `[project.entry-points."mloda.*"]`
 manifest paths for you. When you add plugins, append the class to the matching `manifest.py` list; see
-[Plugin discovery](../README.md#plugin-discovery) for the resilient-import caveat when a plugin needs an
-optional backend.
+[Plugin discovery](../README.md#plugin-discovery) for how to declare a plugin that needs an optional
+backend.
