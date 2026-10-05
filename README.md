@@ -60,9 +60,13 @@ mloda auto-discovers installed plugins via `PluginLoader.all()`, no manual impor
 `pyproject.toml` wires them up under `[project.entry-points."mloda.*"]`. Add a plugin by appending
 it to the relevant list.
 
-If a manifest imports an optional backend (pandas, pyarrow, ...), guard the import: an uncaught
-`ModuleNotFoundError` either silently drops the whole entry point or aborts discovery. Import
-resiliently and append only the classes whose backend is present.
+For an optional backend, do not wrap manifest imports in try/except. Give each optional extra its own
+manifest and entry point, keep the base manifest free of optional imports, and add a
+`mloda.optional_dependencies` marker entry named like the entry it protects (needed unless the backend
+is one of core's built-in roots, such as pandas or polars). The marker module must import without the
+backend. mloda then skips the entry when the backend is missing, lists it in
+`PluginLoader.skipped_plugins()`, and still raises on your plugin's own import errors. See
+[guide 04: Optional Backends](https://github.com/mloda-ai/mloda-registry/blob/main/docs/guides/04-create-plugin-package.md#optional-backends).
 
 ### Key files
 
