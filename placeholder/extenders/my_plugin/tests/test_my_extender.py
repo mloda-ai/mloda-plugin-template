@@ -2,12 +2,14 @@
 
 from typing import Any
 
+from mloda.steward import Extender
+
 from placeholder.extenders.my_plugin.my_extender import MyExtender
 
 
 def test_my_extender_is_an_extender() -> None:
     """The example class participates in the Extender plugin hierarchy."""
-    assert any(base.__name__ == "Extender" for base in MyExtender.__mro__)
+    assert issubclass(MyExtender, Extender)
 
 
 def test_my_extender_instantiates() -> None:
