@@ -4,9 +4,16 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 from pathlib import Path
+from typing import Any
 
 import pytest
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:  # Python 3.10 has no stdlib tomllib; pytest already pulls in its tomli backport.
+    import tomli as tomllib
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ISSUE_TEMPLATE = Path(".github/ISSUE_TEMPLATE/issue.yml")
@@ -304,6 +311,27 @@ def test_repository_url_survives_sed_metacharacters(tmp_path: Path, url: str) ->
 
     assert result.returncode == 0, result.stdout + result.stderr
     assert _line_starting_with(root / ".releaserc.yaml", "repositoryUrl: ") == f'repositoryUrl: "{url}"'
+
+
+def _project_table(root: Path) -> dict[str, Any]:
+    project: dict[str, Any] = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))["project"]
+    return project
+
+
+def test_keywords_are_enabled_only_in_the_scaffold(tmp_path: Path) -> None:
+    """The template has no keywords; a scaffold gets them."""
+    root = _make_scaffold(tmp_path)
+    before = _project_table(root)
+    assert "keywords" not in before
+
+    result = _run_customize(root, "acme")
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    after = _project_table(root)
+    assert after["keywords"] == ["mloda", "mloda-plugin"]
+    assert after["classifiers"] == before["classifiers"]
+    assert "Operating System :: OS Independent" in after["classifiers"]
+    assert not any(c.startswith("License ::") for c in after["classifiers"])
 
 
 def test_sed_metacharacters_do_not_abort_after_the_rename(tmp_path: Path) -> None:

@@ -86,7 +86,7 @@ backend. mloda then skips the entry when the backend is missing, lists it in
   --repository-url https://github.com/<your-org>/<your-repo>
 ```
 
-This renames `placeholder/` to `<your-package-name>/`, updates `pyproject.toml` (`name`, `authors`, `description`, `packages.find.include`, `pytest.testpaths`), updates `.releaserc.yaml` (`message`, `repositoryUrl`), rewrites the `[project.entry-points."mloda.*"]` manifest paths, and rewrites `from placeholder.` imports across the package.
+This renames `placeholder/` to `<your-package-name>/`, updates `pyproject.toml` (`name`, `authors`, `description`, `keywords`, `packages.find.include`, `pytest.testpaths`), updates `.releaserc.yaml` (`message`, `repositoryUrl`), rewrites the `[project.entry-points."mloda.*"]` manifest paths, and rewrites `from placeholder.` imports across the package. Then add your plugin's domain terms to `keywords` so it shows up in PyPI search.
 
 The package name must be a valid Python identifier (lowercase letters, digits, underscores; must start with a letter). The names `mloda` and `mloda_plugins` are reserved: the core `mloda` package is a shared PEP 420 namespace, so a plugin that shipped `mloda/__init__.py` would make mloda unimportable for everyone who installs it. Both `bin/customize.sh` and a `tox`/CI check reject these names. All option flags are optional; if you omit them you can edit the corresponding fields by hand later.
 
@@ -102,7 +102,7 @@ After `tox` passes, confirm `pyproject.toml` no longer contains the template's p
 tox -e placeholders
 ```
 
-This is also enforced in CI: the `test.yml` workflow fails on scaffolded plugins until the template's placeholder strings are removed from `pyproject.toml`. The check covers every field listed in step 1 above: `name`, `authors` (name and email), `description`, `tool.setuptools.packages.find.include`, and `tool.pytest.ini_options.testpaths`. It is skipped on the `mloda-ai/mloda-plugin-template` repository itself, where the placeholders are intentional.
+This is also enforced in CI: the `test.yml` workflow fails on scaffolded plugins until the template's placeholder strings are removed from `pyproject.toml`. The check covers the placeholder-bearing fields from step 1: `name`, `authors` (name and email), `description`, `tool.setuptools.packages.find.include`, and `tool.pytest.ini_options.testpaths`. It is skipped on the `mloda-ai/mloda-plugin-template` repository itself, where the placeholders are intentional.
 
 #### 3. Remove template-only files
 

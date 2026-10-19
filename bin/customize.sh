@@ -137,6 +137,8 @@ sed_inplace "s/^testpaths = \[\"placeholder\", \"tests\"\]\$/testpaths = [\"${PA
 # Entry-point tables: rewrite both the label and the dotted manifest path
 # (e.g. 'placeholder = "placeholder.feature_groups.manifest:...' -> '${PACKAGE} = "${PACKAGE}.feature_groups.manifest:...').
 sed_inplace "s|^placeholder = \"placeholder\\.|${PACKAGE} = \"${PACKAGE}.|" pyproject.toml
+# Keywords stay commented in the template so the published name-reservation package has none.
+sed_inplace "s|^# keywords = \(\[.*]\)  #.*\$|keywords = \1  # add your plugin's domain keywords|" pyproject.toml
 
 if [[ -n "$AUTHOR" || -n "$EMAIL" ]]; then
   AUTHOR_NAME="$(escape_replacement "${AUTHOR:-Your Name placeholder}")"

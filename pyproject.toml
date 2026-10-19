@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -13,6 +13,15 @@ authors = [{ name = "Your Name placeholder", email = "placeholder@placeholder.co
 # mloda capped below 0.15.0 until the next upgrade is evaluated.
 dependencies = ["mloda>=0.14.0,<0.15.0", "mloda-testing>=0.8.0"]
 requires-python = ">=3.10"
+# keywords = ["mloda", "mloda-plugin"]  # off for the name reservation; uncomment for your plugin (customize.sh does this)
+# No `License ::` classifier: setuptools rejects it next to the SPDX `license` string.
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 # mloda discovers installed plugins through these entry points: each resolves to a
 # manifest list of concrete classes. customize.sh rewrites the dotted paths on rename.
