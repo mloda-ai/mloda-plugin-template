@@ -16,6 +16,16 @@ def test_my_extender_instantiates() -> None:
     assert extender is not None
 
 
+def test_my_extender_raises_on_error_by_default() -> None:
+    """Failures raise by default, matching the framework's safe default."""
+    assert MyExtender().raise_on_error is True
+
+
+def test_my_extender_can_disable_raising_on_error() -> None:
+    """Observability extenders can opt into warning-only behavior."""
+    assert MyExtender(raise_on_error=False).raise_on_error is False
+
+
 def test_wraps_returns_set_of_hooks() -> None:
     """wraps() returns the hook values this extender intercepts."""
     extender = MyExtender()

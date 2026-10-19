@@ -6,7 +6,10 @@ from mloda.core.abstract_plugins.function_extender import Extender, ExtenderHook
 
 
 class MyExtender(Extender):
-    """Example Extender - rename and customize for your use case."""
+    """Example Extender. Observability extenders can pass False for warning-only failures."""
+
+    def __init__(self, raise_on_error: bool = True) -> None:
+        self.raise_on_error = raise_on_error
 
     def wraps(self) -> set[ExtenderHook]:
         """Return the set of hooks this extender wraps."""
