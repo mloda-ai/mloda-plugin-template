@@ -6,7 +6,7 @@ Rename-safe: these assertions never name the ``placeholder`` package, so they ke
 
 import importlib.metadata
 
-from mloda.core.abstract_plugins.plugin_registry.plugin_registry import PluginRegistry
+from mloda.steward import PluginRegistry
 from mloda.user import PluginLoader
 
 # group -> the manifest attribute its entry point must resolve to (value suffix survives rename)
