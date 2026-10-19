@@ -240,6 +240,15 @@ def test_malformed_package_names_are_rejected(tmp_path: Path, name: str) -> None
     _assert_rejected(result, root, "lowercase letters/digits/underscores")
 
 
+@pytest.mark.parametrize("option", ["--author", "--email", "--description", "--repository-url"])
+def test_option_missing_its_value_is_rejected(tmp_path: Path, option: str) -> None:
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, "acme", option)
+
+    _assert_rejected(result, root, f"{option} requires a value")
+
+
 def test_unknown_option_is_rejected(tmp_path: Path) -> None:
     root = _make_scaffold(tmp_path)
 

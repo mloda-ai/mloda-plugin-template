@@ -39,10 +39,20 @@ REPOSITORY_URL=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -h|--help) usage; exit 0 ;;
-    --author) AUTHOR="${2:-}"; shift 2 ;;
-    --email) EMAIL="${2:-}"; shift 2 ;;
-    --description) DESCRIPTION="${2:-}"; shift 2 ;;
-    --repository-url) REPOSITORY_URL="${2:-}"; shift 2 ;;
+    --author|--email|--description|--repository-url)
+      if [[ $# -lt 2 ]]; then
+        echo "Error: $1 requires a value." >&2
+        usage >&2
+        exit 2
+      fi
+      case "$1" in
+        --author) AUTHOR="$2" ;;
+        --email) EMAIL="$2" ;;
+        --description) DESCRIPTION="$2" ;;
+        --repository-url) REPOSITORY_URL="$2" ;;
+      esac
+      shift 2
+      ;;
     --*) echo "Error: unknown option: $1" >&2; usage >&2; exit 2 ;;
     *)
       if [[ -z "$PACKAGE" ]]; then
