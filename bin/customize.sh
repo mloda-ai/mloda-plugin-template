@@ -82,6 +82,12 @@ if ! [[ "$PACKAGE" =~ ^[a-z][a-z0-9_]*$ ]]; then
   exit 2
 fi
 
+PYTHON_KEYWORDS=" and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield "
+if [[ "$PYTHON_KEYWORDS" == *" $PACKAGE "* ]]; then
+  echo "Error: package name '$PACKAGE' is a Python keyword." >&2
+  exit 2
+fi
+
 for opt_pair in "--author:$AUTHOR" "--email:$EMAIL" "--description:$DESCRIPTION" "--repository-url:$REPOSITORY_URL"; do
   opt_name="${opt_pair%%:*}"
   opt_value="${opt_pair#*:}"
