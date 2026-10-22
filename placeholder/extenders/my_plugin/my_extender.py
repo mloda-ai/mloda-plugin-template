@@ -2,11 +2,15 @@
 
 from typing import Any
 
-from mloda.core.abstract_plugins.function_extender import Extender, ExtenderHook
+from mloda.steward import Extender, ExtenderHook
 
 
 class MyExtender(Extender):
-    """Example Extender - rename and customize for your use case."""
+    """Example Extender - rename and customize for your use case.
+
+    For lifecycle hooks (on_plan_start, on_plan_complete, on_run_start, on_run_complete) see
+    https://github.com/mloda-ai/mloda-registry/blob/main/docs/guides/11-create-extender.md
+    """
 
     def wraps(self) -> set[ExtenderHook]:
         """Return the set of hooks this extender wraps."""
