@@ -72,5 +72,5 @@ exclude_dirs = [".tox", ".venv", "tests"]
 [tool.uv]
 exclude-newer = "7 days"
 # uv is let through early for the 0.13.4 CA store security fix (released 2026-10-20).
-# Drop the uv entry once that release clears the 7-day window (after 2026-10-27).
+# Drop the uv entry on or after 2026-10-28, once that release has cleared the 7-day window.
 exclude-newer-package = { mloda = "2026-12-31", "mloda-testing" = "2026-12-31", "mloda-registry" = "2026-12-31", uv = "2026-10-21" }
