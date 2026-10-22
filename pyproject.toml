@@ -10,8 +10,8 @@ version = "0.5.0"
 description = "TEMPLATE PLACEHOLDER - Do not install directly. This package reserves the name for mloda-plugin-template. See https://github.com/mloda-ai/mloda-plugin-template"
 license = "Apache-2.0"
 authors = [{ name = "Your Name placeholder", email = "placeholder@placeholder.com" }]
-# mloda capped below 0.15.0 until the next upgrade is evaluated.
-dependencies = ["mloda>=0.14.0,<0.15.0", "mloda-testing>=0.8.0"]
+# mloda capped below 0.17.0 until the next upgrade is evaluated.
+dependencies = ["mloda>=0.16.0,<0.17.0", "mloda-testing>=0.10.0"]
 requires-python = ">=3.10"
 # keywords = ["mloda", "mloda-plugin"]  # off for the name reservation; uncomment for your plugin (customize.sh does this)
 # No `License ::` classifier: setuptools rejects it next to the SPDX `license` string.
