@@ -70,6 +70,8 @@ explicit_package_bases = true
 exclude_dirs = [".tox", ".venv", "tests"]
 
 [tool.uv]
+# An older uv silently rewrites uv.lock in its own format; keep in step with the dev extra's uv floor.
+required-version = ">=0.13.4"
 exclude-newer = "7 days"
 # uv is let through early for the 0.13.4 CA store security fix (released 2026-10-20).
 # Drop the uv entry on or after 2026-10-28, once that release has cleared the 7-day window.
