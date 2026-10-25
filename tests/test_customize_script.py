@@ -240,6 +240,15 @@ def test_malformed_package_names_are_rejected(tmp_path: Path, name: str) -> None
     _assert_rejected(result, root, "lowercase letters/digits/underscores")
 
 
+@pytest.mark.parametrize("name", ["class", "import", "lambda"])
+def test_python_keyword_package_names_are_rejected(tmp_path: Path, name: str) -> None:
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, name)
+
+    _assert_rejected(result, root, f"package name '{name}' is a Python keyword")
+
+
 def test_unknown_option_is_rejected(tmp_path: Path) -> None:
     root = _make_scaffold(tmp_path)
 
