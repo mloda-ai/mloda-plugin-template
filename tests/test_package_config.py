@@ -50,7 +50,8 @@ def test_supported_pythons_match_ci_and_mloda() -> None:
     minors = sorted(int(minor) for minor in re.findall(r"\b3\.(\d+)\b", matrix.group(1))) if matrix else []
     assert minors, "no python-version matrix found in test.yml"
     assert minors == list(range(minors[0], minors[-1] + 1)), minors
-    runtime = {package: SpecifierSet(metadata(package)["Requires-Python"]) for package in ("mloda", "mloda-testing")}
+    # No Requires-Python means any Python.
+    runtime = {pkg: SpecifierSet(metadata(pkg).get("Requires-Python") or "") for pkg in ("mloda", "mloda-testing")}
     for minor in range(minors[0] - 1, minors[-1] + 2):
         version = f"3.{minor}"
         assert (version in supported) == (minors[0] <= minor <= minors[-1]), version
