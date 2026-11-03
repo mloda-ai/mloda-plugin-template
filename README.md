@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/mloda-ai/mloda-plugin-template/blob/main/LICENSE)
 [![mloda](https://img.shields.io/badge/built%20with-mloda-blue.svg)](https://github.com/mloda-ai/mloda)
-[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.11--3.14-blue.svg)](https://www.python.org/)
 [![Tests](https://github.com/mloda-ai/mloda-plugin-template/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/mloda-ai/mloda-plugin-template/actions/workflows/test.yml?query=branch%3Amain)
 [![Scaffold](https://github.com/mloda-ai/mloda-plugin-template/actions/workflows/scaffold-test.yml/badge.svg?branch=main)](https://github.com/mloda-ai/mloda-plugin-template/actions/workflows/scaffold-test.yml?query=branch%3Amain)
 
@@ -112,7 +112,7 @@ After `tox` passes, remove the files that only exist to support the template its
 rm CONTRIBUTING.md bin/customize.sh tests/test_customize_script.py
 ```
 
-`CONTRIBUTING.md` describes how to contribute to the template repo; `bin/customize.sh` is a one-shot scaffold script that has nothing left to do. `tests/test_customize_script.py` tests that script and copies it into a scratch scaffold, so it must go with it — leaving it behind fails `tox` with a `FileNotFoundError` on every subsequent run. The other test files (`test_entry_points.py`, `test_mloda_imports.py`, `test_reserved_namespace.py`) are rename-safe and should stay.
+`CONTRIBUTING.md` describes how to contribute to the template repo; `bin/customize.sh` is a one-shot scaffold script that has nothing left to do. `tests/test_customize_script.py` tests that script and copies it into a scratch scaffold, so it must go with it. Leaving it behind fails `tox` with a `FileNotFoundError` on every subsequent run. The other test files (`test_entry_points.py`, `test_mloda_imports.py`, `test_package_config.py`, `test_reserved_namespace.py`) are rename-safe and should stay.
 
 Also delete the `## First-time setup` section from `CLAUDE.md` and `AGENTS.md`. Those instructions only apply to fresh-template repos.
 
