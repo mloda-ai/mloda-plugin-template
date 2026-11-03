@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/mloda-ai/mloda-plugin-template/blob/main/LICENSE)
 [![mloda](https://img.shields.io/badge/built%20with-mloda-blue.svg)](https://github.com/mloda-ai/mloda)
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 [![Tests](https://github.com/mloda-ai/mloda-plugin-template/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/mloda-ai/mloda-plugin-template/actions/workflows/test.yml?query=branch%3Amain)
 [![Scaffold](https://github.com/mloda-ai/mloda-plugin-template/actions/workflows/scaffold-test.yml/badge.svg?branch=main)](https://github.com/mloda-ai/mloda-plugin-template/actions/workflows/scaffold-test.yml?query=branch%3Amain)
 

@@ -10,9 +10,9 @@ version = "0.5.0"
 description = "TEMPLATE PLACEHOLDER - Do not install directly. This package reserves the name for mloda-plugin-template. See https://github.com/mloda-ai/mloda-plugin-template"
 license = "Apache-2.0"
 authors = [{ name = "Your Name placeholder", email = "placeholder@placeholder.com" }]
-# mloda capped below 0.18.0 until the next upgrade is evaluated.
-dependencies = ["mloda>=0.17.0,<0.18.0", "mloda-testing>=0.11.0"]
-requires-python = ">=3.10"
+# mloda capped below 0.20.0 until the next upgrade is evaluated.
+dependencies = ["mloda>=0.19.0,<0.20.0", "mloda-testing>=0.12.0"]
+requires-python = ">=3.11"
 # keywords = ["mloda", "mloda-plugin"]  # off for the name reservation; uncomment for your plugin (customize.sh does this)
 # No `License ::` classifier: setuptools rejects it next to the SPDX `license` string.
 classifiers = [
@@ -74,8 +74,3 @@ exclude_dirs = [".tox", ".venv", "tests"]
 required-version = ">=0.13.4"
 exclude-newer = "7 days"
 exclude-newer-package = { mloda = "2026-12-31", "mloda-testing" = "2026-12-31", "mloda-registry" = "2026-12-31" }
-# Lock-only: caps filelock below 4.1 on Python 3.10 (4.1.x adds advisories; the fix, 4.2.1+, needs 3.11).
-# Remove this when requires-python moves to >=3.11.
-constraint-dependencies = [
-    "filelock<4.1; python_version < '3.11'",
-]

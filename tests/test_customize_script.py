@@ -4,16 +4,11 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-import sys
+import tomllib
 from pathlib import Path
 from typing import Any
 
 import pytest
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:  # Python 3.10 has no stdlib tomllib; pytest already pulls in its tomli backport.
-    import tomli as tomllib
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ISSUE_TEMPLATE = Path(".github/ISSUE_TEMPLATE/issue.yml")
