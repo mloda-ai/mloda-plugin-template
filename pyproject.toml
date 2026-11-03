@@ -61,6 +61,8 @@ python_files = ["test_*.py"]
 line-length = 120
 
 [tool.mypy]
+# Check against the requires-python floor, not the running interpreter's stdlib stubs.
+python_version = "3.11"
 strict = true
 ignore_missing_imports = true
 namespace_packages = true
