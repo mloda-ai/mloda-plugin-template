@@ -44,7 +44,7 @@ def test_package_discovery_excludes_all_test_packages() -> None:
 
 def test_supported_pythons_match_ci_and_mloda() -> None:
     # A Python we allow but mloda rejects fails the install with an error that blames mloda; test.yml covers our range.
-    # mypy is pinned to the floor so a local run on a newer Python still catches floor-only typing errors.
+    # mypy is pinned to the requires-python floor so a local run on a newer Python still catches floor-only typing errors.
     pyproject = _load_pyproject()
     supported = SpecifierSet(pyproject["project"]["requires-python"])
     workflow = (REPO_ROOT / ".github" / "workflows" / "test.yml").read_text(encoding="utf-8")
@@ -52,8 +52,8 @@ def test_supported_pythons_match_ci_and_mloda() -> None:
     minors = sorted(int(minor) for minor in re.findall(r"\b3\.(\d+)\b", matrix.group(1))) if matrix else []
     assert minors, "no python-version matrix found in test.yml"
     assert minors == list(range(minors[0], minors[-1] + 1)), minors
-    mypy_version = pyproject["tool"]["mypy"].get("python_version")
-    assert mypy_version == f"3.{minors[0]}", mypy_version
+    mypy_version, floor = pyproject["tool"]["mypy"].get("python_version"), f"3.{minors[0]}"
+    assert mypy_version == floor, (mypy_version, floor)
     # No Requires-Python means any Python.
     runtime = {
         pkg: SpecifierSet(",".join(metadata(pkg).get_all("Requires-Python") or []))
