@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
 
     steps:
       - uses: actions/checkout@v4
@@ -35,8 +35,8 @@ jobs:
 
       # Skip on the template repo itself: the placeholders are intentional there.
       # Scaffolded plugins inherit no exemption and must update pyproject.toml
-      # before this check passes. Runs once per workflow (only on the 3.10 leg).
+      # before this check passes. Runs once per workflow (only on the 3.11 leg).
       - name: Check pyproject.toml for template placeholders
-        if: matrix.python-version == '3.10' && github.repository != 'mloda-ai/mloda-plugin-template'
+        if: matrix.python-version == '3.11' && github.repository != 'mloda-ai/mloda-plugin-template'
         run: tox -e placeholders
         timeout-minutes: 1
