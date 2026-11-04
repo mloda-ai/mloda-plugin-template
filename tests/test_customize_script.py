@@ -230,7 +230,7 @@ def test_a_free_name_is_not_rejected_by_an_unrelated_caller_directory(tmp_path: 
 def test_malformed_package_names_are_rejected(tmp_path: Path, name: str) -> None:
     root = _make_scaffold(tmp_path)
 
-    result = _run_customize(root, "acme", name)
+    result = _run_customize(root, name)
 
     _assert_rejected(result, root, "lowercase letters/digits/underscores")
 
