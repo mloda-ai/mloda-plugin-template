@@ -230,7 +230,7 @@ def test_a_free_name_is_not_rejected_by_an_unrelated_caller_directory(tmp_path: 
 def test_malformed_package_names_are_rejected(tmp_path: Path, name: str) -> None:
     root = _make_scaffold(tmp_path)
 
-    result = _run_customize(root, name)
+    result = _run_customize(root, "acme", name)
 
     _assert_rejected(result, root, "lowercase letters/digits/underscores")
 
@@ -242,6 +242,16 @@ def test_option_missing_its_value_is_rejected(tmp_path: Path, option: str) -> No
     result = _run_customize(root, "acme", option)
 
     _assert_rejected(result, root, f"{option} requires a value")
+
+
+@pytest.mark.parametrize("option", ["--author", "--email", "--description", "--repository-url"])
+def test_option_value_with_a_newline_is_rejected(tmp_path: Path, option: str) -> None:
+    """Reject multiline option values before renaming the scaffold."""
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, "acme", option, "Line one\nLine two")
+
+    _assert_rejected(result, root, f"{option} must not contain a newline")
 
 
 def test_unknown_option_is_rejected(tmp_path: Path) -> None:
