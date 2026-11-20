@@ -244,6 +244,16 @@ def test_option_missing_its_value_is_rejected(tmp_path: Path, option: str) -> No
     _assert_rejected(result, root, f"{option} requires a value")
 
 
+@pytest.mark.parametrize("option", ["--author", "--email", "--description", "--repository-url"])
+def test_option_value_with_a_newline_is_rejected(tmp_path: Path, option: str) -> None:
+    """Reject multiline option values before renaming the scaffold."""
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, "acme", option, "Line one\nLine two")
+
+    _assert_rejected(result, root, f"{option} must not contain a newline")
+
+
 def test_unknown_option_is_rejected(tmp_path: Path) -> None:
     root = _make_scaffold(tmp_path)
 
