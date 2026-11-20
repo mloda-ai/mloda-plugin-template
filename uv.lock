@@ -242,15 +242,15 @@ wheels = [
 
 [[package]]
 name = "mloda"
-version = "0.19.1"
+version = "0.20.0"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/46/87/341b2b63909f4fc2e4c0c03d1ebeb02eb743da09c33bd15ded4f14f60e71/mloda-0.19.1-py3-none-any.whl", hash = "sha256:65f156fa590aade822e43f4acfd154c84b0b2f8ca9546b705e23d4d226b6d7d5", size = 790815, upload-time = "2026-11-02T15:51:27.11Z" },
+    { url = "https://files.pythonhosted.org/packages/ac/6b/ba3721a820c64ad42036d1cd6e92a06b00ec94c20a1dc89ae4392409f9dc/mloda-0.20.0-py3-none-any.whl", hash = "sha256:b742173735a4e54e85ef6e88e0cd40a555b23c62fe24792eb02a1be252155a2d", size = 973643, upload-time = "2026-11-13T15:38:33.493Z" },
 ]
 
 [[package]]
 name = "mloda-testing"
-version = "0.12.0"
+version = "0.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mloda" },
@@ -258,7 +258,7 @@ dependencies = [
     { name = "pytest" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f8/c4/1ccc749423a638d3ae2864bfdcfb92f88919dbcfa3c1a5735ad18e9a764e/mloda_testing-0.12.0-py3-none-any.whl", hash = "sha256:ad05bc1d4ca31004070833270ac587d1446bf25690343f7960da5e3cbbd9a593", size = 272232, upload-time = "2026-11-02T23:43:51.753Z" },
+    { url = "https://files.pythonhosted.org/packages/59/eb/92c88a688c69d9a8f0717cc1600061cd3d09527d2fa1a3479af65701fca5/mloda_testing-0.13.0-py3-none-any.whl", hash = "sha256:9217aef7a2d413aa5f21ca13eec22de541213f10abf87d4cc415b18c4a4e8e41", size = 271777, upload-time = "2026-11-13T16:49:05.247Z" },
 ]
 
 [[package]]
@@ -358,8 +358,8 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "bandit", marker = "extra == 'dev'" },
-    { name = "mloda", specifier = ">=0.19.0,<0.20.0" },
-    { name = "mloda-testing", specifier = ">=0.12.0" },
+    { name = "mloda", specifier = ">=0.20.0,<0.21.0" },
+    { name = "mloda-testing", specifier = ">=0.13.0" },
     { name = "mypy", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "ruff", marker = "extra == 'dev'" },
