@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import keyword
 import shutil
 import subprocess
 import tomllib
@@ -12,6 +13,8 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ISSUE_TEMPLATE = Path(".github/ISSUE_TEMPLATE/issue.yml")
+# True/False/None are capitalized and already fail the lowercase check.
+_HARD_KEYWORDS = [k for k in keyword.kwlist if k.islower()]
 
 # A minimal stand-in for .github/ISSUE_TEMPLATE/issue.yml, not a copy of the
 # real file. The CI "scaffold" job runs bin/customize.sh for real against a
@@ -233,6 +236,26 @@ def test_malformed_package_names_are_rejected(tmp_path: Path, name: str) -> None
     result = _run_customize(root, name)
 
     _assert_rejected(result, root, "lowercase letters/digits/underscores")
+
+
+@pytest.mark.parametrize("name", _HARD_KEYWORDS)
+def test_python_keywords_are_rejected(tmp_path: Path, name: str) -> None:
+    """Driven by keyword.kwlist, so a keyword added in a new Python fails until the script's list catches up."""
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, name)
+
+    _assert_rejected(result, root, f"package name '{name}' is a Python keyword")
+
+
+@pytest.mark.parametrize("name", ["match", "classy"], ids=["soft-keyword", "contains-keyword"])
+def test_names_resembling_keywords_are_accepted(tmp_path: Path, name: str) -> None:
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, name)
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert (root / name).is_dir()
 
 
 @pytest.mark.parametrize("option", ["--author", "--email", "--description", "--repository-url"])
