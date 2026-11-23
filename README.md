@@ -90,6 +90,8 @@ This renames `placeholder/` to `<your-package-name>/`, updates `pyproject.toml` 
 
 The package name must be a valid Python identifier (lowercase letters, digits, underscores; must start with a letter). The names `mloda` and `mloda_plugins` are reserved: the core `mloda` package is a shared PEP 420 namespace, so a plugin that shipped `mloda/__init__.py` would make mloda unimportable for everyone who installs it. Both `bin/customize.sh` and a `tox`/CI check reject these names. All option flags are optional; if you omit them you can edit the corresponding fields by hand later.
 
+Option values must not contain newlines or carriage returns. The script rejects these values before renaming the package or editing its files.
+
 #### 2. Verify setup
 
 ```bash
