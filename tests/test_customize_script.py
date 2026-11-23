@@ -244,6 +244,17 @@ def test_option_missing_its_value_is_rejected(tmp_path: Path, option: str) -> No
     _assert_rejected(result, root, f"{option} requires a value")
 
 
+@pytest.mark.parametrize("value", ["Line one\nLine two", "trailing\n"], ids=["embedded", "trailing"])
+@pytest.mark.parametrize("option", ["--author", "--email", "--description", "--repository-url"])
+def test_option_value_with_a_newline_is_rejected(tmp_path: Path, option: str, value: str) -> None:
+    """A newline would break the one-line sed rewrites, so it is refused before the rename."""
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, "acme", option, value)
+
+    _assert_rejected(result, root, f"{option} must not contain a newline")
+
+
 def test_unknown_option_is_rejected(tmp_path: Path) -> None:
     root = _make_scaffold(tmp_path)
 
