@@ -99,6 +99,10 @@ for opt_pair in "--author:$AUTHOR" "--email:$EMAIL" "--description:$DESCRIPTION"
     echo "Error: ${opt_name} must not contain a newline." >&2
     exit 2
   fi
+  if [[ "$opt_value" == *$'\r'* ]]; then
+    echo "Error: ${opt_name} must not contain a carriage return." >&2
+    exit 2
+  fi
 done
 unset opt_pair opt_name opt_value
 

@@ -424,3 +424,15 @@ def test_printed_cleanup_hint_matches_the_readme(tmp_path: Path) -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     printed = [line.strip() for line in result.stdout.splitlines() if line.strip().startswith("rm ")]
     assert printed == [documented], f"script prints {printed}, README documents {documented!r}"
+
+
+@pytest.mark.parametrize("option", ["--author", "--email", "--description", "--repository-url"])
+def test_option_value_with_a_carriage_return_is_rejected(tmp_path: Path, option: str) -> None:
+    root = _make_scaffold(tmp_path)
+    before = {path.relative_to(root): path.read_bytes() for path in root.rglob("*") if path.is_file()}
+
+    result = _run_customize(root, "acme", option, "pasted value\r")
+
+    _assert_rejected(result, root, f"Error: {option} must not contain a carriage return.")
+    assert not (root / "acme").exists()
+    assert {path.relative_to(root): path.read_bytes() for path in root.rglob("*") if path.is_file()} == before
