@@ -88,7 +88,7 @@ backend. mloda then skips the entry when the backend is missing, lists it in
 
 This renames `placeholder/` to `<your-package-name>/`, updates `pyproject.toml` (`name`, `authors`, `description`, `keywords`, `packages.find.include`, `pytest.testpaths`), updates `.releaserc.yaml` (`message`, `repositoryUrl`), rewrites the `[project.entry-points."mloda.*"]` manifest paths, and rewrites `from placeholder.` imports across the package. Then add your plugin's domain terms to `keywords` so it shows up in PyPI search.
 
-The package name must be a valid Python identifier (lowercase letters, digits, underscores; must start with a letter). The names `mloda` and `mloda_plugins` are reserved: the core `mloda` package is a shared PEP 420 namespace, so a plugin that shipped `mloda/__init__.py` would make mloda unimportable for everyone who installs it. Both `bin/customize.sh` and a `tox`/CI check reject these names. All option flags are optional; if you omit them you can edit the corresponding fields by hand later.
+The package name must be a valid Python identifier (lowercase letters, digits, underscores; must start with a letter) and not a Python keyword such as `class`, which `bin/customize.sh` rejects. The names `mloda` and `mloda_plugins` are reserved: the core `mloda` package is a shared PEP 420 namespace, so a plugin that shipped `mloda/__init__.py` would make mloda unimportable for everyone who installs it. Both `bin/customize.sh` and a `tox`/CI check reject these names. All option flags are optional; if you omit them you can edit the corresponding fields by hand later.
 
 #### 2. Verify setup
 

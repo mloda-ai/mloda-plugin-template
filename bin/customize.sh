@@ -92,6 +92,15 @@ if ! [[ "$PACKAGE" =~ ^[a-z][a-z0-9_]*$ ]]; then
   exit 2
 fi
 
+# Lowercase hard keywords of keyword.kwlist; hardcoded to keep this script free of Python.
+case "$PACKAGE" in
+  and|as|assert|async|await|break|class|continue|def|del|elif|else|except|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|raise|return|try|while|with|yield)
+    echo "Error: package name '$PACKAGE' is a Python keyword." >&2
+    echo "Every rewritten import would be a SyntaxError. Choose another name (e.g. acme, my_org)." >&2
+    exit 2
+    ;;
+esac
+
 for opt_pair in "--author:$AUTHOR" "--email:$EMAIL" "--description:$DESCRIPTION" "--repository-url:$REPOSITORY_URL"; do
   opt_name="${opt_pair%%:*}"
   opt_value="${opt_pair#*:}"
