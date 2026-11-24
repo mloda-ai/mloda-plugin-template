@@ -44,14 +44,11 @@ Forking creates a copy that maintains a connection to the original repository.
 Regardless of which option you chose, follow the setup steps in the [README](../README.md#setup-your-plugin) to customize the template:
 
 1. Clone your new repository locally
-2. Rename the `placeholder/` directory
-3. Update `pyproject.toml`
-4. Update `.releaserc.yaml` (change `mloda-plugin-template` to your package name and update `repositoryUrl`)
-5. Update Python imports
-6. Verify with `tox`
-7. Remove `CONTRIBUTING.md`, `bin/customize.sh` and `tests/test_customize_script.py`. `CONTRIBUTING.md` describes contributing to the template repo, not your plugin; the script is a one-shot scaffold; and its test copies the script into a scratch scaffold, so leaving it behind fails `tox`
-8. Keep `CODE_OF_CONDUCT.md`, `AGENTS.md`, `CLAUDE.md`, and `.github/ISSUE_TEMPLATE/` as inherited baselines; tune them later (contact email, placeholder paths, toolchain bullets) if you want
-9. Configure repository settings on GitHub: see [github-repository-settings.md](github-repository-settings.md) for the secrets, branch protection, required checks, and dependabot reviewer that the inherited workflows expect
+2. Run `./bin/customize.sh <your-package-name>` with `--author`, `--email`, `--description` and `--repository-url` (full command and name rules in the README); fields you omit keep template values you must edit by hand. Then add your domain terms to `keywords` in `pyproject.toml`
+3. Verify with `uv venv && source .venv/bin/activate && uv sync --all-extras && tox`, then `tox -e placeholders`
+4. Remove `CONTRIBUTING.md`, `bin/customize.sh` and `tests/test_customize_script.py`. `CONTRIBUTING.md` describes contributing to the template repo, not your plugin; the script is a one-shot scaffold; and its test copies the script, so leaving it behind fails `tox`. Also delete the `## First-time setup` section from `CLAUDE.md` and `AGENTS.md`
+5. Keep `CODE_OF_CONDUCT.md`, `AGENTS.md`, `CLAUDE.md`, and `.github/ISSUE_TEMPLATE/` as inherited baselines; tune them later (contact email, placeholder paths, toolchain bullets) if you want
+6. Configure repository settings on GitHub: see [github-repository-settings.md](github-repository-settings.md) for the secrets, branch protection, required checks, and dependabot reviewer that the inherited workflows expect
 
 ## Plugin discovery
 
