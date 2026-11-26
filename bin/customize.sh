@@ -108,6 +108,15 @@ for opt_pair in "--author:$AUTHOR" "--email:$EMAIL" "--description:$DESCRIPTION"
     echo "Error: ${opt_name} must not contain a newline." >&2
     exit 2
   fi
+  # TOML basic strings forbid control characters other than tab. A '\r' is the
+  # one that realistically slips through: a value pasted from a CRLF source
+  # keeps its trailing CR, passes the newline guard above, and lands inside a
+  # TOML basic string (pyproject.toml) or a YAML scalar (.releaserc.yaml), which
+  # then fails to parse. Tab is legal in both formats, so it is left alone.
+  if [[ "${opt_value//$'\t'/}" == *[[:cntrl:]]* ]]; then
+    echo "Error: ${opt_name} must not contain control characters (for example a carriage return)." >&2
+    exit 2
+  fi
 done
 unset opt_pair opt_name opt_value
 

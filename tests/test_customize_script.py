@@ -278,6 +278,36 @@ def test_option_value_with_a_newline_is_rejected(tmp_path: Path, option: str, va
     _assert_rejected(result, root, f"{option} must not contain a newline")
 
 
+@pytest.mark.parametrize(
+    "value",
+    ["My plugin\r", "Line one\rLine two", "bell\x07"],
+    ids=["trailing-carriage-return", "embedded-carriage-return", "other-control-character"],
+)
+@pytest.mark.parametrize("option", ["--author", "--email", "--description", "--repository-url"])
+def test_option_value_with_a_carriage_return_is_rejected(tmp_path: Path, option: str, value: str) -> None:
+    """A CRLF-pasted value keeps its CR, which TOML basic strings forbid.
+
+    It used to pass the newline guard and land raw in pyproject.toml, so the
+    scaffold reported success but the result failed to parse with
+    ``tomllib.TOMLDecodeError: Illegal character '\\r'``.
+    """
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, "acme", option, value)
+
+    _assert_rejected(result, root, f"{option} must not contain control characters")
+
+
+def test_option_value_with_a_tab_is_accepted(tmp_path: Path) -> None:
+    """Tab is legal in a TOML basic string, so the control-character guard must not reject it."""
+    root = _make_scaffold(tmp_path)
+
+    result = _run_customize(root, "acme", "--author", "Ben\tJerry", "--email", "you@example.com")
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert _project_table(root)["authors"] == [{"name": "Ben\tJerry", "email": "you@example.com"}]
+
+
 def test_unknown_option_is_rejected(tmp_path: Path) -> None:
     root = _make_scaffold(tmp_path)
 
